@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+    <title>وار هاب | WARHUB</title>
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/img/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    <meta name="theme-color" content="#050505">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=5">
+  <style id="rlist-fix">
+/* review list: boxes keep their normal size however many reviews there are */
+.rlist{justify-content:flex-start;max-height:420px;overflow-y:auto;scrollbar-width:none}
+.rlist::-webkit-scrollbar{display:none}
+.ritem{flex:0 0 auto;min-height:58px}
+@media (max-width:900px){.rlist{max-height:none;overflow-y:visible}}
+.rstar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.03);font-size:.9rem;color:var(--muted)}
+.rstar div{display:flex;gap:4px}
+.rstar button{background:none;border:0;cursor:pointer;font-size:1.9rem;line-height:1;color:rgba(255,255,255,.18);transition:.15s}
+.rstar button.on{color:#ffc933;text-shadow:0 0 14px rgba(255,201,51,.5)}
+.rstar button:hover{transform:scale(1.2)}
+.stars .off{opacity:.25}
+</style>
+</head>
+  <body>
+    <canvas id="bg"></canvas>
+    <div class="glow" id="glow"></div>
+    <div class="navwrap">
+
+      <nav>
+        <a class="logo" href="#hero">⚔ WAR<span>HUB</span></a>
+        <ul class="navlinks" id="navlinks">
+          <li><a href="#hero">خانه</a></li>
+          <li><a href="#/rooms">روم‌ها</a></li>
+          <li><a href="#features">ویژگی‌ها</a></li>
+          <li><a href="#services">خدمات</a></li>
+          <li><a href="#/about">درباره ما</a></li>
+          <li><a href="#/rules">قوانین</a></li>
+          <li><a href="#/contact">تماس با ما</a></li>
+        </ul>
+        <div class="navbtns">
+          <div class="notif" id="notif" hidden>
+            <button aria-label="اعلان‌ها" class="nbell" id="nBell" type="button"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><i class="nbadge" id="nBadge" hidden>0</i></button>
+            <div class="npop" id="nPop" hidden>
+              <div class="nph"><b>اعلان‌ها</b><button id="nAll" type="button">خواندن همه</button></div>
+              <div class="npl" id="nList"></div>
+            </div>
+          </div>
+          <a class="wchip" id="wChip" href="#/wallet" aria-label="کیف پول" hidden><span class="wplus">+</span><b id="wChipN">۰</b><svg class="wcoin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#f5b81c" stroke="#ffe27a" stroke-width="1.5"/><path d="M8 9l4 3.5L16 9M8 13l4 3.5 4-3.5" fill="none" stroke="#5a3f00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="navauth" id="navAuth"></div>
+          <button aria-label="منو" class="burger" id="burger">☰</button>
+        </div>
+      </nav>
+    </div>
+
+    <main>
+      <div id="home">
+
+        <section id="hero">
+          <div class="hx-copy">
+            <span class="hx-live"><i></i>۰ روم زنده در همین لحظه</span>
+            <h1 class="hx-title" data-t="WARHUB">WAR<span>HUB</span></h1>
+            <h2>میدان رقابت <em>کالاف دیوتی موبایل</em></h2>
+            <p>توانایی‌هات رو در روم‌های رسمی به رخ بکش، با بهترین‌ها رقابت کن و جایزه‌ات رو بلافاصله بعد از پایان بازی تحویل بگیر.</p>
+            <div class="cta">
+              <button class="btn hx-btn" id="heroSignup" type="button"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" height="18" viewbox="0 0 24 24" width="18"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M19 8v6M22 11h-6"></path></svg>ثبت‌نام رایگان و ورود به روم‌ها</button>
+              <button class="btn ghost hx-btn" id="heroLogin" type="button">قبلاً ثبت‌نام کردم؛ ورود ←</button>
+            </div>
+            <div class="hx-trust"><span>✓ واریز آنی جایزه</span><span>✓ ضد تقلب هوشمند</span><span>✓ روم رایگان</span></div>
+          </div>
+          <div aria-hidden="true" class="hx-vis">
+            <div class="hx-ring r1"></div>
+            <div class="hx-ring r2"></div>
+            <div class="hx-card">
+              <div class="hx-top"><span class="hx-tag">LIVE</span><b>بتل رویال دابل</b><span class="hx-ping">۲۴ ms</span></div>
+              <div class="hx-radar">
+                <div class="sweep"></div>
+                <i style="top:22%;right:30%"></i><i style="top:58%;right:68%"></i><i style="top:70%;right:26%"></i><i style="top:36%;right:74%"></i><span class="cx"></span>
+              </div>
+              <div class="hx-row">
+                <div><small>جایزه کل</small><b>۵٬۰۰۰٬۰۰۰ ت</b></div>
+                <div><small>بازیکن</small><b id="hxp">۹۸ / ۱۰۰</b></div>
+              </div>
+              <div class="hx-bar"><span></span></div>
+            </div>
+            <div class="hx-chip c1">🏆 جایزه پرداخت شد<br><small>همین حالا</small></div>
+            <div class="hx-chip c2">🛡️ ضد تقلب فعال</div>
+          </div>
+        </section>
+        <div class="hud">
+          <div class="hc"><b data-n="800" data-s="K+">0</b><span>بازیکن فعال ماهانه</span><u><i style="--w:82%"></i></u></div>
+          <div class="hc"><b>24/7</b><span>پشتیبانی شبانه‌روزی مسابقات</span><u><i style="--w:100%"></i></u></div>
+          <div class="hc"><b data-n="250" data-s="K+">0</b><span>مسابقهٔ برگزارشده</span><u><i style="--w:68%"></i></u></div>
+          <div class="hc"><b data-d="1" data-n="99.9" data-s="%">0</b><span>پایداری سرورها</span><u><i style="--w:99%"></i></u></div>
+        </div>
+        <hr class="line">
+
+        <section id="features">
+          <div class="sechd rv">
+            <span class="chip">ویژگی‌ها</span>
+            <h2 class="title">همه‌چیز برای یک گیمر جدی، یک‌جا</h2>
+            <p class="sub" style="margin-bottom:0">از رقابت و جایزه تا خرید و فروش؛ همه در یک سایت</p>
+          </div>
+          <div class="grid" id="g-features"></div>
+        </section>
+        <hr class="line">
+
+        <section id="services">
+          <div class="sechd rv">
+            <span class="chip">خدمات</span>
+            <h2 class="title">وار هاب فقط مسابقه نیست؛ یه دنیای کامله</h2>
+            <p class="sub" style="margin-bottom:0">از شارژ CP تا معاملهٔ اکانت، با امنیت و استاندارد بالا</p>
+          </div>
+          <div class="grid" id="g-services"></div>
+        </section>
+        <hr class="line">
+
+        <section id="reviews">
+          <div class="sechd rv">
+            <div class="badge">❝</div>
+            <span class="chip">نظرات کاربران</span>
+            <h2 class="title">نظر بازیکن‌ها <span class="hl">دربارهٔ وار هاب</span></h2>
+            <p class="sub" style="margin-bottom:0">بیش از ۸۰۰ هزار بازیکن این پلتفرم رو انتخاب کردن</p>
+          </div>
+          <div class="rvwrap rv">
+            <div class="rshow">
+              <div class="rmain" id="rmain"></div>
+              <div class="rlist" id="rlist"></div>
+            </div>
+            <div class="rnav"><button aria-label="قبلی" id="rprev">›</button><span class="rcount" id="rcount"></span><button aria-label="بعدی" id="rnext">‹</button></div>
+          </div>
+          <div class="rvwrap rv" style="max-width:640px;margin-top:40px">
+            <form class="cf" id="rf" novalidate="">
+              <div class="cf-h"><h2>نظر خودت رو بنویس</h2><p>نظرت بعد از بررسی و تأیید مدیریت توی سایت نمایش داده میشه</p></div>
+              <div class="rstar" id="rstar"><span>امتیاز شما به وار هاب</span><div><button type="button" data-v="1" aria-label="1 ستاره">★</button><button type="button" data-v="2" aria-label="2 ستاره">★</button><button type="button" data-v="3" aria-label="3 ستاره">★</button><button type="button" data-v="4" aria-label="4 ستاره">★</button><button type="button" data-v="5" aria-label="5 ستاره">★</button></div></div>
+              <div class="two">
+                <div class="fl"><input id="rn" maxlength="40" placeholder=" " type="text"><label for="rn">نام شما</label></div>
+                <div class="fl"><input id="rr" maxlength="30" placeholder=" " type="text"><label for="rr">نقش (اختیاری، مثلاً گیمر)</label></div>
+              </div>
+              <div class="fl"><textarea id="rm" maxlength="400" placeholder=" "></textarea><label for="rm">نظرت رو بنویس...</label></div>
+              <button class="cf-b" id="rfb" type="button"><span class="t1">ارسال نظر</span><span class="t2">در حال ارسال…</span><span class="t3">✓ برای بررسی ارسال شد</span></button>
+            </form>
+          </div>
+        </section>
+        <hr class="line">
+
+        <section id="faq">
+          <div class="sechd rv">
+            <span class="chip">سوالات متداول</span>
+            <h2 class="title">سؤال داری؟ <span class="hl">پاسخش اینجاست!</span></h2>
+          </div>
+          <div class="fx rv">
+            <aside class="fx-side">
+              <div class="fx-search"><svg fill="none" height="16" stroke="currentColor" stroke-width="2.4" viewbox="0 0 24 24" width="16"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input autocomplete="off" id="fxq" placeholder="جست‌وجو در سوالات…"></div>
+              <div class="fx-tabs" id="fxtabs"></div>
+              <div class="fx-help">
+                <b>جوابتو پیدا نکردی؟</b>
+                <p>تیم پشتیبانی ۲۴ ساعته پاسخگوئه.</p>
+                <a class="btn" href="#/contact">تماس با پشتیبانی</a>
+              </div>
+            </aside>
+            <div class="faq" id="faqlist"></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="page" hidden="" id="p-about">
+        <div class="hd">
+          <span class="chip">داستان ما</span>
+          <h1 class="title">ما وار هاب هستیم</h1>
+          <p class="sub">پلتفرم برگزاری مسابقات بازی‌های آنلاین برای گیمرهای ایرانی. مسیرمون رو برای ساختن محیطی ایمن، منصفانه و حرفه‌ای شروع کردیم و حالا بیش از ۸۰۰ هزار بازیکن همراه ما هستند.</p>
+        </div>
+        <hr class="line">
+        <br><br>
+        <h2 class="title">از یک ایدهٔ ساده تا پلتفرمی پرمخاطب</h2>
+        <br>
+        <div class="narrow">
+          <p>وار هاب در سال ۱۴۰۰ شکل گرفت تا <b>بستری ایمن، منصفانه و حرفه‌ای در اختیار گیمرهای ایرانی بگذارد</b>؛ جایی که بتوانند توانایی‌شان را نشان بدهند و از بازی درآمد داشته باشند.</p>
+          <p>از همان ابتدا دیده بودیم که بازی در ایران ظرفیت بالایی دارد که کمتر به آن توجه شده است. میلیون‌ها جوان روزانه ساعت‌ها بازی می‌کنند، ولی جای مطمئن و قانونمندی برای رقابت و کسب درآمد نداشتند.</p>
+          <p>امروز <b>بیش از ۸۰۰ هزار بازیکن فعال</b>، صدها هزار تورنمنت، میلیون‌ها سفارش و میلیاردها تومان جایزهٔ پرداخت‌شده، وار هاب را به یکی از شناخته‌شده‌ترین مراکز رقابت گیمینگ کشور رسانده است.</p>
+          <p>تیم ما ترکیبی از مهندسان، حقوق‌دانان، متخصصان امنیت و گیمرهای واقعی است که هر روز برای بهتر شدن تجربهٔ شما کار می‌کنند.</p>
+        </div>
+        <hr class="line">
+        <br><br>
+        <span class="chip">مسیر رشد</span>
+        <h2 class="title">نقاط عطف وار هاب</h2>
+        <br>
+        <div class="tlx" id="tlx">
+          <div class="ti">
+            <span class="nd"></span>
+            <div class="cd">
+              <span class="st">مرحله ۱</span><b class="yr">۱۴۰۰</b>
+              <h3>شروع راه</h3>
+              <p>آغاز کار وار هاب با هدف ساخت بستری حرفه‌ای برای گیمرهای ایرانی</p>
+            </div>
+          </div>
+          <div class="ti">
+            <span class="nd"></span>
+            <div class="cd">
+              <span class="st">مرحله ۲</span><b class="yr">۱۴۰۱</b>
+              <h3>۱۰۰ هزار کاربر</h3>
+              <p>رشد سریع و جلب اعتماد جامعهٔ گیمرها</p>
+            </div>
+          </div>
+          <div class="ti">
+            <span class="nd"></span>
+            <div class="cd">
+              <span class="st">مرحله ۳</span><b class="yr">۱۴۰۲</b>
+              <h3>افتتاح فروشگاه</h3>
+              <p>اضافه شدن فروشگاه CP، آیتم‌های درون‌بازی و معاملهٔ اکانت</p>
+            </div>
+          </div>
+          <div class="ti">
+            <span class="nd"></span>
+            <div class="cd">
+              <span class="st">مرحله ۴</span><b class="yr">۱۴۰۳</b>
+              <h3>۸۰۰ هزار بازیکن</h3>
+              <p>رسیدن به جایگاه یکی از پرمخاطب‌ترین پلتفرم‌های مسابقات گیمینگ</p>
+            </div>
+          </div>
+          <div class="rail"><i id="tlf"></i></div>
+        </div>
+        <br><br>
+        <hr class="line">
+        <br><br>
+        <span class="chip">ارزش‌های ما</span>
+        <h2 class="title">اصولی که به آن‌ها وفادارییم</h2>
+        <p class="sub">این ارزش‌ها پایه‌های کار ما هستند و در هیچ شرایطی کنارشان نمی‌گذاریم</p>
+        <div class="grid" id="g-values"></div>
+        <br><br>
+        <hr class="line">
+        <br><br>
+        <div class="blk narrow">
+          <i>🔥</i>
+          <h3 style="font-size:1.6rem">مأموریت ما</h3>
+          <p style="color:var(--muted);line-height:2;margin-bottom:16px">باور ما این است که هر گیمر ایرانی شایستهٔ محیطی حرفه‌ای، مطمئن و بی‌طرف برای نشان دادن مهارتش است. هدف ما ساختن یک اکوسیستم کامل برای گیمینگ ایران است؛ فضایی که در آن توانایی قدر دیده می‌شود، رقابت عادلانه است و هر کس می‌تواند از علاقه‌اش به بازی کسب درآمد کند.</p>
+          <span class="chip">امنیت</span><span class="chip">عدالت</span><span class="chip">شفافیت</span><span class="chip">نوآوری</span><span class="chip">کیفیت</span>
+        </div>
+        <br><br>
+        <hr class="line">
+        <br><br>
+        <h2 class="title">فعالیت قانونمند و قابل اتکا</h2>
+        <p class="sub">با درگاه‌های پرداخت ایمن و مجوزهای رسمی، با خیال راحت از خدمات ما استفاده کنید</p>
+        <div class="grid">
+          <div class="card">
+            <h3>مجوز اعتماد الکترونیک</h3>
+          </div>
+          <div class="card">
+            <h3>بانک سامان</h3>
+          </div>
+          <div class="card">
+            <h3>پرداخت امن زرین‌پال</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" hidden="" id="p-rules">
+        <div class="hd">
+          <span class="chip">مقررات پلتفرم</span>
+          <h1 class="title">قوانین و شرایط استفاده</h1>
+          <p class="sub">به مسابقات رسمی وار هاب خوش آمدید! این صفحه شامل قوانین و مقرراتی است که تمامی بازیکنان و تیم‌های شرکت‌کننده موظف به رعایت آن‌ها در طول مسابقات هستند. عدم رعایت این قوانین ممکن است منجر به محرومیت تیم یا بازیکن متخلف از ادامه مسابقات شود. با ثبت‌نام در سایت وار هاب، شما با <b>قوانین و شرایط استفاده</b> و سیاست حریم خصوصی وار هاب موافقت می‌کنید.</p>
+        </div>
+        <div class="stack" id="rules-list"></div>
+        <br><br>
+        <hr class="line">
+        <br><br>
+        <div class="hd">
+          <span class="chip">حفظ اطلاعات کاربران</span>
+          <h1 class="title">سیاست حریم خصوصی</h1>
+          <p class="sub">وار هاب تنها اطلاعات ضروری برای ارائه خدمات را دریافت می‌کند و متعهد است تمامی داده‌ها را به‌صورت امن و رمزگذاری‌شده نگهداری کند. لطفاً این سیاست را با دقت مطالعه کنید.</p>
+        </div>
+        <div class="stack" id="privacy-list"></div>
+      </div>
+
+      <div class="page" hidden="" id="p-contact">
+        <div class="hd">
+          <span class="chip">ارتباط با ما</span>
+          <h1 class="title">با ما در ارتباط باشید</h1>
+          <p class="sub">از این فرم برای تماس با مدیریت، واحد حقوقی و پشتیبانی وار هاب استفاده کن. پیگیری سفارش، مشکل فنی و مسائل مالی هم همین‌جا بررسی می‌شود.</p>
+        </div>
+        <div class="cx">
+          <form class="cf" id="cf" novalidate="">
+            <div class="cf-h">
+              <h2>ارسال پیام</h2>
+              <p>فقط برای مدیریت، واحد حقوقی و امور دولتی</p>
+            </div>
+            <div class="dp" id="cdp">
+              <label><input name="d" type="radio" value="مدیریت"><span><i>🏢</i>مدیریت</span></label>
+              <label><input name="d" type="radio" value="حقوقی"><span><i>⚖️</i>حقوقی</span></label>
+              <label><input name="d" type="radio" value="امور دولتی"><span><i>🏛️</i>امور دولتی</span></label>
+            </div>
+            <div class="two">
+              <div class="fl"><input autocomplete="name" id="cn" placeholder=" " type="text"><label for="cn">نام و نام خانوادگی</label></div>
+              <div class="fl"><input autocomplete="tel" id="cph" placeholder=" " type="tel"><label for="cph">شماره تماس</label></div>
+            </div>
+            <div class="fl"><textarea id="cm" maxlength="600" placeholder=" "></textarea><label for="cm">پیام خود را بنویسید...</label><span class="cnt" id="ccnt">۰ / ۶۰۰</span></div>
+            <div class="nt">
+              <span>⚠️</span>
+              <p><b>توجه مهم:</b> پشتیبانی وار هاب فقط از طریق همین سایت انجام می‌شود. پیگیری سفارشات، مشکلات فنی، مسائل مالی و ... را همین‌جا بنویس؛ پاسخ را بعد از ورود، در بخش <b>اعلان‌ها</b> (زنگ بالای سایت) می‌بینی.
+            </div>
+            <button class="cf-b" id="cfb" type="button"><span class="t1">ارسال پیام</span><span class="t2">در حال ارسال…</span><span class="t3">✓ ثبت شد</span><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24" width="18"><path d="M22 2L11 13"></path><path d="M22 2l-7 20-4-9-9-4 20-7z"></path></svg></button>
+          </form>
+          <aside class="cs">
+            <div class="sp">
+              <span class="lv"><i></i>پشتیبانی داخل سایت</span>
+              <h3>پشتیبانی سریع‌تر</h3>
+              <p>برای پیگیری مشکلات فنی، سفارشات و تراکنش‌ها، پیامت را از فرم همین صفحه بفرست؛ پاسخ پشتیبانی از طریق <b>اعلان‌ها</b> به دستت می‌رسد.</p>
+              <div class="tg"><span>مشکلات فنی</span><span>پیگیری سفارش</span><span>مشکلات مالی</span><span>گزارش تقلب</span></div>
+            </div>
+            <h3 class="sh">شبکه‌های اجتماعی</h3>
+            <a class="ch ig" href="#"><span class="ci"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="18" rx="5" width="18" x="3" y="3"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" fill="currentColor" r=".6"></circle></svg></span><span class="ct"><b>اینستاگرام</b><small>آخرین اخبار و رویدادها</small></span><button class="cp" data-c="@warhub.app" type="button"><span>@warhub.app</span><em>کپی</em></button></a>
+            <a class="ch tlg" href="#"><span class="ci"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M22 2L11 13"></path><path d="M22 2l-7 20-4-9-9-4 20-7z"></path></svg></span><span class="ct"><b>کانال تلگرام</b><small>اطلاع‌رسانی و اخبار فوری</small></span><button class="cp" data-c="@warhub_ir" type="button"><span>@warhub_ir</span><em>کپی</em></button></a>
+            <a class="ch gc" href="#"><span class="ci"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l1.9-5.4A8.5 8.5 0 1 1 21 11.5z"></path></svg></span><span class="ct"><b>گپ چت تلگرام</b><small>گفتگو با سایر پلیرها</small></span><span class="go">←</span></a>
+            <a class="fr" href="#"><span>⚠️</span><span class="ct"><b>گزارش تقلب</b><small>ربات تلگرام ضد تقلب</small></span><span class="go">←</span></a>
+          </aside>
+        </div>
+      </div>
+
+      <div class="page" hidden id="p-panel">
+        <div class="hd">
+          <span class="chip">پنل کاربری</span>
+          <h1 class="title">پنل من</h1>
+        </div>
+        <div class="pn-wrap" id="pnBody"><p class="rm-empty">در حال بارگذاری…</p></div>
+      </div>
+
+      <div class="page" hidden id="p-wallet">
+        <div class="hd">
+          <span class="chip">کیف پول</span>
+          <h1 class="title">کیف پول من</h1>
+        </div>
+        <div class="pn-wrap" id="wBody"><p class="rm-empty">در حال بارگذاری…</p></div>
+      </div>
+
+      <div class="page" hidden id="p-rooms">
+        <div class="hd">
+          <span class="chip">روم‌های زنده · بدون نیاز به نصب</span>
+          <h1 class="title">روم‌های زنده WARHUB</h1>
+          <p class="sub">همین‌جا تو روم‌ها ثبت‌نام کن، جایگاهت رو انتخاب کن و بعد از پایان بازی جایزه‌ات رو ببین؛ بدون نصب هیچ برنامه‌ای.</p>
+        </div>
+
+        <div class="rm-idbar" id="rmId"></div>
+        <div class="rm-live" id="rmLive"></div>
+        <div class="rm-search">
+          <svg class="rm-sic" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+          <input id="rmQ" type="search" placeholder="جستجوی روم‌ها…" autocomplete="off" enterkeyhint="search">
+          <button class="rm-qclr" id="rmQClr" type="button" aria-label="پاک کردن جستجو" hidden>✕</button>
+          <span class="rm-sdiv"></span>
+          <button class="rm-fbtn" id="rmFilterBtn" type="button" aria-label="فیلتر"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.2" viewBox="0 0 24 24"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"></path><circle cx="16" cy="6" r="2.2"></circle><circle cx="10" cy="12" r="2.2"></circle><circle cx="18" cy="18" r="2.2"></circle></svg><span>فیلتر</span><i id="rmFilterDot" hidden></i></button>
+        </div>
+        <div class="rm-active" id="rmActive" hidden></div>
+        <div class="rm-filters" id="rmFilters"></div>
+        <div class="rm-grid" id="rmGrid"></div>
+        <p class="rm-empty" id="rmEmpty" hidden>فعلاً روم بازی باز نیست. بعداً دوباره سر بزن 🎮</p>
+      </div>
+    </main>
+
+    <!-- room detail overlay -->
+    <div class="rm-ov" id="rmDetail" hidden>
+      <div class="rm-panel">
+        <div class="rm-dhead">
+          <h2 id="rmDetTitle"></h2>
+          <button class="rm-x" id="rmDetClose" type="button" aria-label="بستن">✕</button>
+        </div>
+        <div class="rm-dtabs">
+          <button type="button" class="on" data-t="room">روم</button>
+          <button type="button" data-t="info">توضیحات</button>
+        </div>
+        <div class="rm-dbody" id="rmDetBody"></div>
+        <div class="rm-dbottom">
+          <p class="rm-won" id="rmWon" hidden></p>
+          <button class="btn rm-action" id="rmAction" type="button"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- filter sheet -->
+    <div class="rm-ov rm-fs" id="rmFilterSheet" hidden>
+      <div class="rm-panel rm-fpanel">
+        <div class="rm-grab"></div>
+        <div class="rm-fhead"><div><h2>فیلتر روم‌ها</h2><p id="rmFSub"></p></div><button class="rm-x" id="rmFilterClose" type="button" aria-label="بستن">✕</button></div>
+        <div class="rm-dbody" id="rmFilterBody"></div>
+        <div class="rm-dbottom rm-fbar"><button class="btn rm-action" id="rmFilterDone" type="button">نمایش روم‌ها</button><button class="rm-clear" id="rmFilterClear" type="button">پاک کردن فیلترها</button></div>
+      </div>
+    </div>
+
+    <!-- phone login overlay -->
+    <div class="rm-ov" id="rmLogin" hidden>
+      <div class="rm-panel rm-small">
+        <button class="rm-x" id="rmLoginClose" type="button" aria-label="بستن">✕</button>
+        <h2>ورود / ثبت‌نام</h2>
+        <p class="sub" id="rmLoginMsg" style="margin:8px 0 18px">برای ادامه، شماره موبایلت رو وارد کن؛ اگه قبلاً ثبت‌نام نکرده باشی، خودکار برات حساب ساخته میشه.</p>
+        <div class="fl"><input id="rmPhone" type="tel" placeholder=" " autocomplete="tel" maxlength="15"><label for="rmPhone">شماره موبایل</label></div>
+        <div class="fl"><input id="rmInvite" type="text" inputmode="numeric" placeholder=" " autocomplete="off" maxlength="8"><label for="rmInvite">کد دعوت (اختیاری)</label></div>
+        <div class="cp-box" id="cpBox" dir="ltr">
+          <div class="cp-stage" id="cpStage"><img id="cpBg" alt="" draggable="false"><img id="cpPiece" alt="" draggable="false"><div class="cp-load" id="cpLoad">…</div></div>
+          <div class="cp-track" id="cpTrack"><div class="cp-fill" id="cpFill"></div><span class="cp-hint" id="cpHint">قطعه را به حفره‌ی هم‌شکلش ببر</span><div class="cp-handle" id="cpHandle" role="slider" aria-label="اسلایدر پازل"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" viewbox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div></div>
+          <button class="cp-re" id="cpRefresh" type="button" aria-label="پازل جدید">↻</button>
+        </div>
+        <p class="rm-err" id="rmLoginErr" hidden></p>
+        <button class="btn" id="rmLoginBtn" type="button" style="width:100%;margin-top:14px">ورود</button>
+      </div>
+    </div>
+
+    <div class="rm-toasts" id="rmToasts"></div>
+
+    <footer>
+      <div class="fwrap">
+        <div class="fgrid">
+          <div class="fbrand">
+            <a class="logo" href="#hero">⚔ WAR<span>HUB</span></a>
+            <p>پلتفرم مسابقات بازی‌های آنلاین با بیش از ۸۰۰ هزار بازیکن در سراسر ایران.</p>
+            <div class="fsoc"><a aria-label="اینستاگرام" href="#/contact"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="18" rx="5" width="18" x="3" y="3"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" fill="currentColor" r=".6"></circle></svg></a><a aria-label="تلگرام" href="#/contact"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M22 2L11 13"></path><path d="M22 2l-7 20-4-9-9-4 20-7z"></path></svg></a><a aria-label="گپ چت" href="#/contact"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l1.9-5.4A8.5 8.5 0 1 1 21 11.5z"></path></svg></a></div>
+          </div>
+          <div>
+            <h4>دسترسی سریع</h4>
+            <ul>
+              <li><a href="#/rooms">ثبت‌نام</a></li>
+              <li><a href="#/rooms">ورود</a></li>
+              <li><a href="#services">فروشگاه CP</a></li>
+              <li><a href="#features">مسابقات</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>اطلاعات</h4>
+            <ul>
+              <li><a href="#/about">درباره ما</a></li>
+              <li><a href="#/rules">قوانین و شرایط</a></li>
+              <li><a href="#/contact">تماس با ما</a></li>
+              <li><a href="#/rules">احکام شرعی</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>پشتیبانی</h4>
+            <ul>
+              <li><a href="#faq">سوالات متداول</a></li>
+              <li><a href="#/contact">گزارش تقلب</a></li>
+              <li><a href="#/contact">پیگیری گزارش</a></li>
+              <li><a href="#/contact">گپ چت</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="fbottom">
+          <span>© ۱۴۰۵ وار هاب (WARHUB) — تمامی حقوق محفوظ است.</span>
+          <div class="fl"><a href="#/about">درباره ما</a><a href="#/contact">تماس با ما</a><a href="#/rules">قوانین</a><a href="#/rooms">ورود / ثبت‌نام</a></div>
+        </div>
+      </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="api.js?v=4"></script>
+    <script src="script.js?v=4"></script>
+  </body>
+</html>

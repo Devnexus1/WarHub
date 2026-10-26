@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>پنل مدیریت | WARHUB</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#050505">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07070a;--p:rgba(22,10,12,.72);--p2:rgba(255,255,255,.035);--bd:rgba(255,60,75,.2);--r:#b40d1c;--r2:#ff2b3b;--glow:rgba(255,30,45,.3);--t:#f4eeed;--m:#a99a99;--ok:#2ee59d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Vazirmatn',sans-serif;background:radial-gradient(800px 500px at 90% -10%,var(--w1,rgba(180,13,28,.3)),transparent),radial-gradient(600px 400px at 0 100%,var(--w2,rgba(120,10,20,.2)),transparent),var(--bg);color:var(--t);min-height:100vh;line-height:1.7}
+[hidden]{display:none!important}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+.mu{color:var(--m)}.rd{color:var(--r2)}
+.logo{font-weight:900;font-size:1.35rem;letter-spacing:.5px}.logo b{color:var(--r2)}
+/* inputs */
+.in{width:100%;margin-top:6px;padding:11px 14px;background:rgba(0,0,0,.45);border:1px solid var(--bd);border-radius:12px;outline:0;transition:.2s}
+.in:focus{border-color:var(--r2);box-shadow:0 0 0 3px var(--glow)}
+.in:-webkit-autofill{-webkit-text-fill-color:var(--t);box-shadow:0 0 0 40px #1a0b0d inset}
+textarea.in{min-height:84px;resize:vertical}select.in option{background:#140809}
+.f{display:block;font-size:.84rem;color:var(--m);margin-top:14px}
+.ltr{direction:ltr;text-align:left}
+/* buttons */
+.b{border:0;border-radius:12px;padding:10px 20px;font-weight:700;background:linear-gradient(135deg,var(--r),var(--r2));box-shadow:0 6px 22px -6px var(--glow);transition:.2s}
+.b:hover{transform:translateY(-1px);filter:brightness(1.12)}.b:disabled{opacity:.5}
+.b.g{background:var(--p2);border:1px solid var(--bd);box-shadow:none}.b.d{background:transparent;border:1px solid var(--r2);color:var(--r2);box-shadow:none}
+.b.ok{background:linear-gradient(135deg,#119e69,var(--ok));color:#04130d}.b.s{padding:6px 14px;font-size:.82rem;border-radius:10px}
+/* login */
+.lw{min-height:100vh;display:grid;place-items:center;padding:20px}
+.lc{width:100%;max-width:400px;padding:34px;border-radius:24px;border:1px solid var(--bd);background:var(--p);backdrop-filter:blur(14px);box-shadow:0 30px 80px -30px #000,0 0 60px -20px var(--glow);text-align:center}
+.lc .f{text-align:right}.pw{position:relative;display:block}.pw .in{padding-left:44px}
+.pw button{position:absolute;left:10px;top:50%;transform:translateY(-30%);background:none;border:0;font-size:1.1rem;opacity:.7}
+.er{color:var(--r2);font-size:.88rem;margin-top:12px}.lc .b{width:100%;margin-top:18px;padding:13px}
+/* shell */
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+.sd{position:sticky;top:0;height:100vh;padding:22px 16px;display:flex;flex-direction:column;gap:22px;background:var(--p);border-left:1px solid var(--bd);backdrop-filter:blur(14px)}
+.sd .logo{padding:0 8px}.sd .logo em{font-style:normal;font-size:.62rem;margin-inline-start:6px;padding:2px 8px;border-radius:99px;border:1px solid var(--bd);color:var(--r2)}
+#tabs{display:flex;flex-direction:column;gap:6px;flex:1}
+#tabs button{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:none;border:1px solid transparent;color:var(--m);text-align:right;transition:.2s}
+#tabs button svg{width:19px;height:19px;flex:none}#tabs button:hover{background:var(--p2);color:var(--t)}
+#tabs button.on{color:#fff;background:linear-gradient(135deg,rgba(180,13,28,.55),rgba(255,43,59,.25));border-color:var(--bd);box-shadow:0 0 24px -8px var(--glow)}
+.bdg{margin-inline-start:auto;min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:var(--r2);color:#fff;font-size:.74rem;display:grid;place-items:center;font-weight:700}
+.me{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;background:var(--p2);border:1px solid var(--bd)}
+.av{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-weight:900;background:linear-gradient(135deg,var(--r),var(--r2));text-transform:uppercase}
+.me div{flex:1;min-width:0}.me b{display:block;font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.me small{color:var(--m);font-size:.74rem}
+.mn{min-width:0}.tp{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:14px;padding:16px 28px;background:rgba(7,7,10,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd)}
+.tp h1{font-size:1.25rem}#mb{display:none;background:var(--p2);border:1px solid var(--bd);border-radius:10px;width:40px;height:40px;font-size:1.2rem}
+#view{padding:28px;max-width:1150px}
+/* cards */
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:22px}
+.st{padding:20px;border-radius:18px;border:1px solid var(--bd);background:linear-gradient(160deg,rgba(255,43,59,.12),var(--p2))}
+.st b{display:block;font-size:2.1rem;line-height:1.2}.st span{color:var(--m);font-size:.85rem}
+.pn,.it{padding:18px;border-radius:18px;border:1px solid var(--bd);background:var(--p);margin-bottom:14px}
+.pn h3{margin-bottom:4px}.pn.n{border-color:var(--r2);box-shadow:0 0 26px -10px var(--glow)}
+.hd{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:6px}.it p{margin:8px 0 12px;white-space:pre-wrap;line-height:1.9}
+.tg{font-size:.74rem;padding:3px 11px;border-radius:99px;border:1px solid var(--bd);color:var(--m)}
+.ac{display:flex;gap:8px;flex-wrap:wrap}.ti{font-size:1.5rem;margin:0 0 18px;display:flex;align-items:center;gap:10px}
+.sec{margin:26px 0 12px;font-size:1.05rem;display:flex;gap:8px;align-items:center}
+.tw{overflow-x:auto;border:1px solid var(--bd);border-radius:18px;background:var(--p)}
+table{width:100%;border-collapse:collapse}th,td{padding:13px 16px;text-align:right;border-bottom:1px solid var(--bd);font-size:.9rem;white-space:nowrap}th{color:var(--m);font-weight:600}tr:last-child td{border:0}
+.rw{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;align-items:end;padding:14px;border-radius:16px;border:1px solid var(--bd);background:var(--p);margin-bottom:10px}
+.fm{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;align-items:end}.fm .f{margin:0}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.em{padding:34px;text-align:center;color:var(--m);border:1px dashed var(--bd);border-radius:18px}
+/* toast + modal */
+#ts{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:50;display:flex;flex-direction:column;gap:8px}
+.to{padding:12px 20px;border-radius:14px;background:#160a0c;border:1px solid var(--bd);box-shadow:0 10px 40px #000;animation:up .25s}.to.e{border-color:var(--r2)}.to.k{border-color:var(--ok)}
+@keyframes up{from{opacity:0;transform:translateY(10px)}}
+#md{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);padding:20px}
+#md div{max-width:380px;width:100%;padding:26px;border-radius:20px;background:#140809;border:1px solid var(--bd);text-align:center}#md p{margin-bottom:18px}#md .ac{justify-content:center}
+.ut td{white-space:normal;vertical-align:middle}.ut td.nw{white-space:nowrap}
+.ut .pc{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-width:180px;max-width:380px}.ut .pc .tg{margin:0!important;white-space:nowrap}
+.ut select.in{min-width:175px;font-size:.84rem}.pprow[hidden]{display:none!important}
+@media(max-width:760px){.ut,.ut tbody,.ut tr{display:block;width:100%}.ut tr:first-child{display:none}.ut tr{padding:12px 14px;border-bottom:1px solid var(--bd)}.ut td{display:flex;gap:12px;align-items:center;justify-content:space-between;border:0;padding:7px 0;width:100%}.ut td[data-l]::before{content:attr(data-l);color:var(--m);font-size:.78rem;flex:none}.ut .pc{justify-content:flex-end;min-width:0;max-width:none}.ut select.in{min-width:0;flex:1;max-width:210px}.ut tr.pprow{padding:0 0 12px}.ut tr.pprow td{display:block;padding:0}}
+@media(max-width:860px){.app{grid-template-columns:1fr}.sd{position:fixed;z-index:40;right:0;width:270px;transform:translateX(100%);transition:.25s}.sd.open{transform:none}#mb{display:block}.tp,#view{padding-inline:16px}}
+
+/* v2: themes, dashboard, toolbars, command palette */
+#tabs button.on{background:linear-gradient(135deg,color-mix(in srgb,var(--r) 55%,transparent),color-mix(in srgb,var(--r2) 25%,transparent))}
+.st{background:linear-gradient(160deg,color-mix(in srgb,var(--r2) 14%,transparent),var(--p2))}
+button:focus-visible,.in:focus-visible{outline:2px solid var(--r2);outline-offset:2px}
+[data-th=light]{--bg:#f6f2f2;--p:rgba(255,255,255,.92);--p2:rgba(0,0,0,.045);--t:#1c1416;--m:#6d5f61;color-scheme:light}
+[data-th=light] .in{background:#fff}[data-th=light] .tp{background:rgba(246,242,242,.85)}
+[data-th=light] #md>div,[data-th=light] .to,[data-th=light] .kp{background:#fff}[data-th=light] select.in option{background:#fff}
+[data-th=light] .b:not(.g):not(.d):not(.ok),[data-th=light] .av,[data-th=light] #tabs button.on{color:#fff}[data-th=light] .in:-webkit-autofill{box-shadow:0 0 0 40px #fff inset}
+.pref{display:flex;gap:8px;align-items:center;padding:0 8px}.dot{width:20px;height:20px;padding:0;border-radius:50%;border:2px solid transparent;background:hsl(var(--h) 90% 50%)}.dot.on{border-color:var(--t)}.pref .th{margin-inline-start:auto;width:34px;padding:4px 0}
+.tp #kb kbd{opacity:.6;font-size:.7rem;margin-inline-start:6px}
+.gr{margin-bottom:20px}.gr h2{font-size:1.45rem}
+.dg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:16px}.dg .pn{margin:0}
+.st[data-go]{cursor:pointer;transition:.2s}.st[data-go]:hover{border-color:var(--r2);transform:translateY(-2px)}
+.hb{display:grid;grid-template-columns:90px 1fr 36px;gap:10px;align-items:center;margin-top:10px;font-size:.85rem}.hb div{height:10px;border-radius:99px;background:var(--p2);overflow:hidden}.hb i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--r),var(--r2))}
+.dn{width:116px;height:116px;border-radius:50%;display:grid;place-items:center;flex:none}.dn span{width:82px;height:82px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-weight:900;font-size:1.25rem}
+.at{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;margin-top:8px;border-radius:14px;background:var(--p2);border:1px solid var(--bd);text-align:right}.at:hover{border-color:var(--r2)}.at b{margin-inline-start:auto;color:var(--r2);font-size:1.2rem}
+.fd{display:flex;gap:10px;font-size:.84rem;padding:8px 0;border-bottom:1px dashed var(--bd)}.fd:last-child{border:0}.fd time{margin-inline-start:auto;color:var(--m);white-space:nowrap}
+.tb{align-items:center}.chips{display:flex;gap:6px;flex-wrap:wrap}.ch{padding:6px 14px;border-radius:99px;background:var(--p2);border:1px solid var(--bd);color:var(--m);font-size:.84rem}.ch i{font-style:normal;margin-inline-start:6px;color:var(--r2)}.ch.on{color:var(--t);border-color:var(--r2);background:color-mix(in srgb,var(--r2) 18%,transparent)}
+.pb{height:6px;border-radius:99px;background:var(--p2);overflow:hidden}.pb i{display:block;height:100%;background:linear-gradient(90deg,var(--r),var(--r2))}
+#kp{position:fixed;inset:0;z-index:70;display:grid;align-items:start;justify-items:center;padding:12vh 16px;background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
+.kp{width:100%;max-width:520px;border-radius:20px;border:1px solid var(--bd);background:#140809;overflow:hidden;box-shadow:0 30px 80px #000}.kp input{width:100%;padding:16px 20px;background:none;border:0;border-bottom:1px solid var(--bd);outline:0;font-size:1rem}
+.kp ul{list-style:none;max-height:50vh;overflow:auto;padding:8px}.kp li{padding:11px 14px;border-radius:12px;cursor:pointer;display:flex;gap:10px}.kp li.on{background:color-mix(in srgb,var(--r2) 20%,transparent)}.kp li small{margin-inline-start:auto;color:var(--m)}
+@media(max-width:860px){.tp #kb kbd{display:none}}
+html,body{overflow-x:hidden}
+.sd{height:100vh;height:100dvh;overflow:hidden;gap:14px}
+#tabs{min-height:0;overflow-y:auto;gap:4px;scrollbar-width:thin}#tabs button{padding:10px 14px}
+.sd .logo,.pref,.me{flex:none}.me .av{flex:none}.me #out{width:34px;height:34px;padding:0;flex:none;font-size:1rem}
+@media(max-height:760px){.sd{padding:14px 12px;gap:10px}#tabs button{padding:8px 12px}}
+.tp #kb{display:flex;align-items:center;gap:8px;white-space:nowrap}.tp #kb kbd{margin:0;font-family:inherit}
+.fd{flex-wrap:wrap}.fd b{order:1}.fd time{order:2;margin-inline-start:auto}.fd span{order:3;flex:1 1 100%;unicode-bidi:plaintext;overflow-wrap:anywhere;color:var(--m)}
+.sd,.kp ul,.tw{scrollbar-width:thin}
+#ntp{margin-top:12px}
+.fm{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:stretch}.fm>.f{display:flex;flex-direction:column;justify-content:space-between}
+input[type=color].in{height:46px;padding:4px;cursor:pointer}
+input[type=file].in{padding:8px 12px}input[type=file].in::file-selector-button{margin-inline-end:12px;border:0;border-radius:8px;padding:6px 14px;background:var(--r);color:#fff;font:inherit;cursor:pointer}
+.rpv{border-radius:16px;padding:14px 16px;margin-top:18px;border:1px solid var(--bd);border-inline-start:6px solid var(--c);background:var(--p2)}.rpv>div{display:flex;gap:10px;align-items:center}.rpv p{color:var(--m);font-size:.85rem;margin-top:4px}
+.mt{height:6px;border-radius:99px;background:var(--p2);margin-top:8px;overflow:hidden}.mt i{display:block;height:100%;width:0;transition:.25s}
+.pf{display:flex;gap:14px;align-items:center}.pf .av{width:54px;height:54px;font-size:1.4rem;flex:none}
+.fm{align-items:start}.fm>.f{justify-content:flex-start}.fm>button{align-self:end;height:46px;padding-block:0}
+.ch[data-amt]{font-size:.75rem;padding:3px 10px;white-space:nowrap}
+.ag{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;align-items:start}.ag>.pn{max-width:none!important;margin:0!important}.ag>.pn:first-child{grid-column:1/-1}
+#pr{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px}#pr>.pn{margin:0!important}#pr>p{grid-column:1/-1}
+
+/* mobile: smaller, denser UI */
+.dg{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}.ag{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}#pr{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+@media(max-width:640px){
+html{font-size:14px}
+.tp{padding:9px 12px;gap:10px}.tp h1{font-size:1.05rem}#mb{width:36px;height:36px}.tp #kb{padding:5px 10px;font-size:.78rem}
+#view{padding:14px 12px}.sd{width:236px}
+.sg{grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}.st{padding:12px 14px;border-radius:14px}.st b{font-size:1.5rem}.st span{font-size:.76rem}
+.pn,.it{padding:13px;border-radius:14px;margin-bottom:10px}.dg,.ag{gap:10px}
+.b{padding:8px 15px;border-radius:10px}.b.s{padding:5px 11px;font-size:.78rem}.in{padding:9px 12px;border-radius:10px}.fm>button{height:40px}
+.fm{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:8px}.fm .f,.f{font-size:.78rem;margin-top:10px}
+.tb .in,.bar .in{min-width:0!important;flex:1 1 100%!important;max-width:none!important}.bar{gap:8px;margin:12px 0}
+.ch{padding:4px 11px;font-size:.78rem}.ti{font-size:1.15rem}.gr h2{font-size:1.15rem}.sec{font-size:.95rem}
+th,td{padding:9px 10px;font-size:.8rem}.tg{font-size:.68rem;padding:2px 8px}
+.dn{width:88px;height:88px}.dn span{width:62px;height:62px;font-size:1rem}.hb{grid-template-columns:68px 1fr 28px;font-size:.8rem}
+.rw{grid-template-columns:repeat(auto-fit,minmax(100px,1fr));padding:10px;gap:8px}.at{padding:10px 12px}.fd{font-size:.78rem}
+.lc{padding:24px 18px;border-radius:20px}#md div{padding:18px}.kp input{padding:13px 16px}#kp{padding-top:7vh}
+#ts{width:calc(100% - 24px);bottom:14px}.to{padding:10px 14px;font-size:.85rem}
+}
+/* iPad / tablet: icon rail instead of drawer (641-1100px), touch targets, iOS fixes */
+body{padding-inline:env(safe-area-inset-left) env(safe-area-inset-right)}
+.sd{padding-bottom:calc(14px + env(safe-area-inset-bottom))}#ts{bottom:calc(14px + env(safe-area-inset-bottom))}
+@media(min-width:641px) and (max-width:1100px){
+.app{grid-template-columns:72px 1fr}
+.sd{position:sticky;top:0;right:auto;width:72px;transform:none;padding:14px 8px;align-items:center;gap:12px;z-index:6}
+.sd .logo{font-size:0;padding:0}.sd .logo::before{content:"⚔";font-size:1.5rem}.sd .logo b,.sd .logo em{display:none}
+#tabs{width:100%;align-items:center}#tabs button{position:relative;justify-content:center;width:48px;padding:12px}#tabs button span{display:none}
+#tabs button .bdg{position:absolute;top:0;inset-inline-start:0;min-width:18px;height:18px;font-size:.65rem;padding:0 4px}
+.pref{display:grid;grid-template-columns:repeat(2,20px);gap:8px;padding:0}.pref .th{grid-column:1/-1;width:100%;margin:0}
+.me{flex-direction:column;padding:8px 4px;gap:8px}.me div:not(.av){display:none}
+#mb{display:none}.tp{padding:12px 22px}#view{padding:22px;max-width:none}
+.sg{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.st b{font-size:1.8rem}
+.fm{grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+}
+@media(pointer:coarse){.b.s{min-height:38px}.ch{min-height:36px}.dot{width:26px;height:26px}#tabs button{min-height:44px}input[type=checkbox]{width:20px;height:20px}}
+@media(max-width:640px){.in,.kp input,select.in,textarea.in{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="lw" id="login">
+ <div class="lc">
+  <div class="logo">⚔ WAR<b>HUB</b></div>
+  <p class="mu" id="lt" style="margin-top:6px">ورود به پنل مدیریت</p>
+   <div class="pn" id="phb" hidden style="margin:16px 0;padding:14px"></div>
+  <label class="f">نام کاربری<input class="in ltr" id="lu" autocomplete="username"></label>
+  <label class="f">رمز عبور<span class="pw"><input class="in ltr" id="lp" type="password" autocomplete="current-password"><button type="button" id="eye" aria-label="نمایش رمز">👁</button></span></label>
+  <label class="f" id="lcw" hidden>تکرار رمز عبور<input class="in ltr" id="lc" type="password" autocomplete="new-password"></label>
+  <label class="f" id="lkw" hidden>کد راه‌اندازی (از فایل data/setup-code.txt)<input class="in ltr" id="lk" autocomplete="off"></label>
+  <p class="er" id="le" hidden></p>
+  <button class="b" id="lb" type="button">ورود</button>
+ </div>
+</div>
+<div class="app" id="app" hidden>
+ <aside class="sd" id="sd">
+  <div class="logo">⚔ WAR<b>HUB</b><em>ADMIN</em></div>
+  <nav id="tabs"></nav>
+  <div class="pref"><button class="dot" data-h="355" style="--h:355" aria-label="تم قرمز" type="button"></button><button class="dot" data-h="215" style="--h:215" aria-label="تم آبی" type="button"></button><button class="dot" data-h="270" style="--h:270" aria-label="تم بنفش" type="button"></button><button class="dot" data-h="38" style="--h:38" aria-label="تم کهربایی" type="button"></button><button class="b g s th" id="thm" type="button" aria-label="تم روشن/تاریک">◐</button></div>
+  <div class="me"><div class="av" id="av"></div><div><b id="who"></b><small id="role"></small></div><button class="b g s" id="out" type="button" title="خروج" aria-label="خروج از پنل">⏻</button></div>
+ </aside>
+ <main class="mn"><header class="tp"><button id="mb" type="button">☰</button><h1 id="pt"></h1><button class="b g s" id="kb" type="button" style="margin-inline-start:auto">🔍 جستجوی سریع<kbd class="ltr">Ctrl K</kbd></button></header><div id="view"></div></main>
+</div>
+<div id="ts"></div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+(function ($) {
+  $.ajaxSetup({ headers: { 'X-Requested-With': 'wh' }, contentType: 'application/json' });
+  const api = (m, u, d) => $.ajax({ method: m, url: '/api/admin/' + u, data: d === undefined ? undefined : JSON.stringify(d) });
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fa = n => (+n).toLocaleString('fa-IR'), dt = s => new Date(s).toLocaleString('fa-IR');
+  const toast = (t, k) => { const e = $(`<div class="to ${k || ''}">${esc(t)}</div>`).appendTo('#ts'); setTimeout(() => e.fadeOut(300, () => e.remove()), 2800); };
+  const err = x => toast((x.responseJSON && x.responseJSON.error) || 'خطا در ارتباط با سرور', 'e');
+  const ask = t => new Promise(ok => { const m = $(`<div id="md"><div><p>${esc(t)}</p><div class="ac"><button class="b d" data-v="1">بله، انجام بده</button><button class="b g" data-v="">انصراف</button></div></div></div>`).appendTo('body'); m.on('click', 'button', function () { m.remove(); ok(!!$(this).data('v')); }); });
+  const I = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const IC = { dash: I('<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>'),
+    messages: I('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>'),
+    reviews: I('<path d="M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.5A8 8 0 1 1 21 12z"/>'), users: I('<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M17 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6"/>'),
+    audit: I('<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6M8 13h8M8 17h6"/>'), me: I('<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M16 7l3 3"/>'),
+    notify: I('<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>'),
+    wallet: I('<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M16 14.5h2"/>'),
+    players: I('<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 20h8"/>'),
+    rooms: I('<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>') };
+  const ROLES = { owner: 'مالک (همه‌چیز)', editor: 'ویرایشگر', support: 'پشتیبان' };
+  const MODE_LABELS = { br: 'Battle Royale', mp: 'Multiplayer', duel: 'دوئل', cr: 'Clash Royale', rt: 'رنکینگ و تورنومنت' };
+  const TABS = [['dash', 'داشبورد'], ['messages', 'پیام‌ها', 'messages'], ['notify', 'اعلان به بازیکن', 'notify'], ['rooms', 'روم‌ها', 'rooms'], ['wallet', 'کیف پول', 'wallet'], ['players', 'رنک و دستاورد', ['ranks', 'achievements']], ['reviews', 'نظرات', 'content'], ['users', 'مدیران', 'users'], ['audit', 'گزارش فعالیت', 'audit'], ['me', 'حساب من']];
+  const PERM_LABELS = { messages: 'پیام‌ها', content: 'نظرات و محتوا', rooms: 'روم‌ها', notify: 'اعلان به بازیکن', wallet: 'کیف پول (پول و برداشت‌ها)', ranks: 'دادن رنک به بازیکن', achievements: 'دادن دستاورد به بازیکن', users: 'مدیریت مدیران ⚠️ (ساخت/حذف ادمین)', audit: 'گزارش فعالیت (دیدن کارهای همه‌ی ادمین‌ها)' };
+  let me, pend = 0, lastInv = null; const V = $('#view');
+
+  let phs = null;
+  function phoneBox() {
+    api('GET', 'phone-status').done(r => {
+      phs = r; const b = $('#phb');
+      if (!r.phone) return b.prop('hidden', false).html('<b>ورود با شماره موبایل</b><p class="mu" style="margin-top:6px;font-size:.85rem">اگر با شماره‌ات ادمین شده‌ای، اول در <a href="/#/panel" style="color:var(--r2)">سایت</a> با همان شماره وارد شو و بعد به این صفحه برگرد.</p>');
+      if (!r.staff) return b.prop('hidden', true);
+      b.prop('hidden', false).html(`<b>ورود با شماره ${esc(r.phone)}</b><p class="mu" style="margin:6px 0 10px;font-size:.85rem">${r.pending ? (r.owner ? 'اولین ورود مالک: کد فعال‌سازی (از لاگ سرور یا فایل data/setup-code.txt) و یک رمز جدید وارد کن.' : 'کد دعوتی که مالک به تو داده و یک رمز جدید وارد کن.') : 'رمز پنل مدیریت خودت را وارد کن.'}</p>` +
+        (r.pending ? '<label class="f">کد<input class="in ltr" id="phc" autocomplete="off"></label><label class="f">رمز جدید (حداقل ۸ کاراکتر)<input class="in ltr" id="phn" type="password" autocomplete="new-password"></label>' : '<label class="f">رمز<input class="in ltr" id="php" type="password" autocomplete="current-password"></label>') +
+        `<button class="b" id="phgo" type="button">${r.pending ? 'فعال‌سازی و ورود' : 'ورود'}</button>`);
+    });
+  }
+  $(document).on('click', '#phgo', () => {
+    const req = phs && phs.pending ? api('POST', 'phone-activate', { code: $('#phc').val(), np: $('#phn').val() }) : api('POST', 'phone-login', { p: $('#php').val() });
+    req.done(() => api('GET', 'me').done(start)).fail(x => show((x.responseJSON || {}).error || 'خطا'));
+  });
+  function showLogin() { $('#app').prop('hidden', true); $('#login').prop('hidden', false); api('GET', 'setup').done(r => sw(!!r.needed)); phoneBox(); }
+  function start(u) {
+    me = u; $('#login').prop('hidden', true); $('#app').prop('hidden', false);
+    $('#who').text(u.u); $('#role').text(ROLES[u.r].split(' ')[0]); $('#av').text(u.u[0]);
+    $('#tabs').html(TABS.filter(t => !t[2] || [].concat(t[2]).some(k => u.perms.includes(k))).map(t => `<button type="button" data-t="${t[0]}" title="${t[1]}" aria-label="${t[1]}">${IC[t[0]]}<span>${t[1]}</span>${t[0] === 'reviews' || t[0] === 'wallet' ? `<i class="bdg" data-b="${t[0]}" hidden></i>` : ''}</button>`).join(''));
+    go('dash'); badge();
+  }
+  function badge() { if (!me.perms.includes('content') && !me.perms.includes('wallet')) return; api('GET', 'stats').done(s => { pend = s.counts.pending; document.title = (pend ? '(' + fa(pend) + ') ' : '') + 'پنل مدیریت | WARHUB'; const set = (k, n) => $(`.bdg[data-b=${k}]`).text(fa(n)).prop('hidden', !n); set('reviews', pend); set('wallet', s.counts.walletPending || 0); }); }
+  function go(t) { $('#sd').removeClass('open'); $('#tabs button').removeClass('on').filter(`[data-t=${t}]`).addClass('on'); $('#pt').text(TABS.find(x => x[0] === t)[1]); VIEWS[t](); }
+  $(document).ajaxError((e, x, o) => { if (x.status === 401 && !/login|setup/.test(o.url)) showLogin(); });
+  $('#tabs').on('click', 'button', function () { go($(this).data('t')); });
+  $('#mb').on('click', () => $('#sd').toggleClass('open'));
+  let setup = false;
+  const sw = on => { setup = on; $('#lt').text(on ? 'اولین ورود: حساب مدیر را بسازید' : 'ورود به پنل مدیریت'); $('#lcw,#lkw').prop('hidden', !on); $('#lb').text(on ? 'ساخت حساب و ورود' : 'ورود'); $('#lp').attr('autocomplete', on ? 'new-password' : 'current-password'); };
+  $('#eye').on('click', () => $('#lp,#lc').attr('type', $('#lp').attr('type') === 'password' ? 'text' : 'password'));
+  const login = () => {
+    const show = t => $('#le').text(t).prop('hidden', false);
+    if (setup && $('#lp').val() !== $('#lc').val()) return show('رمز و تکرار آن یکسان نیست.');
+    api('POST', setup ? 'setup' : 'login', { u: $('#lu').val(), p: $('#lp').val(), k: $('#lk').val() }).done(() => api('GET', 'me').done(start)).fail(x => show((x.responseJSON || {}).error || 'خطا'));
+  };
+  $('#lb').on('click', login);
+  $('#login').on('keydown', 'input', function (e) { if (e.key === 'Enter') login(); }); // never return false here: it blocks typing
+  $('#out').on('click', () => api('POST', 'logout', {}).always(() => { $('#lp').val(''); showLogin(); }));
+
+  const csv = (name, rows) => { const t = '\ufeff' + rows.map(r => r.map(c => { const v = String(c == null ? '' : c); return '"' + (/^[=+\-@]/.test(v) ? "'" + v : v).replace(/"/g, '""') + '"'; }).join(',')).join('\r\n'), a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([t], { type: 'text/csv;charset=utf-8' })); a.download = name + '.csv'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); };
+  const genPw = () => { const c = 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%', a = new Uint32Array(14); crypto.getRandomValues(a); return Array.from(a, x => c[x % c.length]).join(''); };
+  const PR = { g: (k, d) => { try { return localStorage.getItem('wh_' + k) || d; } catch (e) { return d; } }, s: (k, v) => { try { localStorage.setItem('wh_' + k, v); } catch (e) {} } };
+  const look = () => { const h = +PR.g('hue', 355), st = document.documentElement.style, c = (sa, l, a) => `hsl(${h} ${sa}% ${l}%${a == null ? '' : ' / ' + a})`;
+    st.setProperty('--r', c(87, 38)); st.setProperty('--r2', c(100, 58)); st.setProperty('--glow', c(100, 55, .3)); st.setProperty('--bd', c(100, 62, .2)); st.setProperty('--w1', c(80, 38, .3)); st.setProperty('--w2', c(80, 25, .2));
+    document.documentElement.dataset.th = PR.g('th', 'dark'); $('.dot').each(function () { $(this).toggleClass('on', +$(this).data('h') === h); }); };
+  look();
+  $(document).on('click', '.dot', function () { PR.s('hue', $(this).data('h')); look(); }).on('click', '#thm', () => { PR.s('th', PR.g('th', 'dark') === 'dark' ? 'light' : 'dark'); look(); })
+    .on('click', '[data-go]', function () { go($(this).data('go')); }).on('keydown', '.st[data-go]', e => { if (e.key === 'Enter') $(e.currentTarget).click(); })
+    .on('keydown', e => { if ((e.ctrlKey || e.metaKey) && ((e.key || '').toLowerCase() === 'k' || e.code === 'KeyK')) { e.preventDefault(); palette(); } });
+  $('#kb').on('click', palette);
+  setInterval(() => { if (me && !$('#app').prop('hidden')) badge(); }, 60000);
+  function palette() {
+    if ($('#kp').length || !me) return;
+    const nav = TABS.filter(t => !t[2] || [].concat(t[2]).some(k => me.perms.includes(k))).map(t => ({ n: t[1], k: 'برو به', run: () => go(t[0]) }));
+    const acts = [{ n: 'تغییر تم روشن/تاریک', k: 'عملیات', run: () => $('#thm').click() }, { n: 'تازه‌سازی همین صفحه', k: 'عملیات', run: () => go($('#tabs .on').data('t')) }, { n: 'خروج از پنل', k: 'عملیات', run: () => $('#out').click() }];
+    const pTab = me.perms.includes('ranks') || me.perms.includes('achievements') ? 'players' : me.perms.includes('notify') ? 'notify' : null;
+    let items = nav.concat(acts), i = 0, tm = null;
+    const m = $('<div id="kp"><div class="kp"><input placeholder="برو به… یا نام/شماره بازیکن را بنویس" aria-label="جستجوی سریع"><ul></ul></div></div>').appendTo('body'), inp = m.find('input'), ul = m.find('ul');
+    const draw = () => { ul.html(items.map((x, j) => `<li data-i="${j}" class="${j === i ? 'on' : ''}">${esc(x.n)}<small>${esc(x.k)}</small></li>`).join('') || '<li class="mu">نتیجه‌ای نیست</li>'); const a = ul.find('.on')[0]; if (a) a.scrollIntoView({ block: 'nearest' }); };
+    const pick = j => { const x = items[j]; if (x) { m.remove(); x.run(); } };
+    inp.on('input', function () {
+      const q = this.value.trim().toLowerCase(); i = 0; clearTimeout(tm);
+      items = nav.concat(acts).filter(x => x.n.toLowerCase().includes(q)); draw();
+      if (pTab && q.length >= 2) tm = setTimeout(() => api('GET', 'players?q=' + encodeURIComponent(q)).done(L => { if (inp.val().trim().toLowerCase() !== q) return; items = items.concat(L.slice(0, 5).map(p => ({ n: (p.name || 'بدون نام') + ' · ' + p.phone, k: 'بازیکن', run: () => { go(pTab); $(pTab === 'players' ? '#pq' : '#nq').val(p.phone).trigger('input'); } }))); draw(); }), 250);
+    }).on('keydown', e => {
+      if (e.key === 'ArrowDown') { i = Math.min(i + 1, items.length - 1); draw(); e.preventDefault(); } else if (e.key === 'ArrowUp') { i = Math.max(i - 1, 0); draw(); e.preventDefault(); } else if (e.key === 'Enter') pick(i); else if (e.key === 'Escape') m.remove();
+    });
+    m.on('click', e => { if (e.target === m[0]) m.remove(); }); ul.on('click', 'li[data-i]', function () { pick(+$(this).data('i')); }); draw(); inp.focus();
+  }
+
+  const VIEWS = {
+    dash() {
+      api('GET', 'stats').done(s => {
+        const m = s.messages, c = s.counts, can = k => me.perms.includes(k), hr = new Date().getHours(), greet = hr < 5 ? 'شب بخیر' : hr < 12 ? 'صبح بخیر' : hr < 17 ? 'ظهر بخیر' : hr < 20 ? 'عصر بخیر' : 'شب بخیر';
+        const box = (n, l, g) => `<div class="st"${g ? ` data-go="${g}" role="button" tabindex="0"` : ''}><b>${fa(n)}</b><span>${l}</span></div>`;
+        const todo = []; if (m && m.new) todo.push(['messages', 'پیام خوانده‌نشده', m.new]); if (can('content') && c.pending) todo.push(['reviews', 'نظر در انتظار تأیید', c.pending]); if (can('wallet') && c.walletPending) todo.push(['wallet', 'درخواست کیف پول در انتظار', c.walletPending]);
+        const by = m ? Object.entries(m.by).sort((a, b) => b[1] - a[1]) : [], mx = Math.max(1, ...by.map(x => x[1])), pct = c.rooms ? Math.round(c.roomsOpen / c.rooms * 100) : 0;
+        V.html(`<div class="gr"><h2>${greet}، ${esc(me.u)}</h2><p class="mu">${new Date().toLocaleDateString('fa-IR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p></div>
+          <div class="sg">${m ? box(m.new, 'پیام جدید', 'messages') + box(m.total, 'کل پیام‌ها', 'messages') : ''}${can('rooms') ? box(c.roomsOpen, 'روم باز', 'rooms') + box(c.rooms, 'کل روم‌ها', 'rooms') : ''}${can('wallet') ? box(c.walletPending || 0, 'درخواست کیف پول در انتظار', 'wallet') : ''}${can('content') ? box(c.pending, 'نظر در انتظار تأیید', 'reviews') + box(c.reviews, 'نظر منتشرشده', 'reviews') : ''}${box(c.players || 0, 'بازیکن ثبت‌شده')}${box(s.admins, 'مدیر', can('users') ? 'users' : '')}</div>
+          <div class="dg"><div class="pn"><h3>نیاز به اقدام</h3>${todo.map(t => `<button class="at" data-go="${t[0]}" type="button">${t[1]}<b>${fa(t[2])}</b></button>`).join('') || '<p class="mu" style="margin-top:8px">کار معوقی نیست ✓</p>'}</div>
+          ${m ? `<div class="pn"><h3>پیام‌ها به تفکیک واحد</h3>${by.map(([k, v]) => `<div class="hb"><span>${esc(k)}</span><div><i style="width:${Math.round(v / mx * 100)}%"></i></div><b>${fa(v)}</b></div>`).join('') || '<p class="mu" style="margin-top:8px">هنوز پیامی نیست</p>'}</div>` : ''}
+          ${can('rooms') ? `<div class="pn" style="display:flex;gap:18px;align-items:center"><div class="dn" style="background:conic-gradient(var(--r2) 0 ${pct}%,var(--p2) 0)"><span>${fa(pct)}٪</span></div><div><h3>وضعیت روم‌ها</h3><p class="mu">${fa(c.roomsOpen)} روم باز از ${fa(c.rooms)}</p></div></div>` : ''}
+          ${can('audit') ? '<div class="pn" style="grid-column:1/-1"><h3>آخرین فعالیت‌ها</h3><div id="fd" style="margin-top:6px"><span class="mu">در حال بارگذاری…</span></div></div>' : ''}</div>`);
+        if (can('audit')) api('GET', 'audit').done(L => $('#fd').html([...L].sort((a, b) => new Date(b.at) - new Date(a.at)).slice(0, 7).map(x => `<div class="fd"><b>${esc(x.u)}</b><span>${esc(x.a)}</span><time>${dt(x.at)}</time></div>`).join('') || '<span class="mu">خالی</span>'));
+      });
+    },
+    wallet() {
+      const row = t => `<div class="it" data-id="${esc(t.id)}"><div class="hd"><b>${({ deposit: 'واریز', withdraw: 'برداشت', gift: 'هدیه', adjust: t.dir === 'out' ? 'کاهش دستی' : 'افزایش دستی' })[t.type] || esc(t.type)} · ${fa(t.amount)} تومان</b><span class="tg">${esc(t.name || t.phone)}</span><span class="mu" style="margin-inline-start:auto;font-size:.8rem">${dt(t.at)}</span></div>
+          <p class="mu" style="margin-top:6px;font-size:.85rem">${esc(t.phone)}${t.label ? ' · ' + esc(t.label) : ''}${t.type === 'withdraw' ? ` · کارت/شبا: <b dir="ltr" style="user-select:all">${esc(t.card || 'ثبت نشده')}</b>` : ''}</p>
+          ${t.status === 'pending' ? `<div class="ac" style="margin-top:10px"><button class="b" data-wa="approve" type="button">${t.type === 'deposit' ? 'تایید و افزودن به موجودی' : 'واریز کردم'}</button><button class="b d" data-wa="reject" type="button">رد</button></div>` : `<span class="tg" style="margin-top:8px">${t.status === 'done' ? 'انجام شد' : 'رد شد'}${t.by ? ' · ' + esc(t.by) : ''}</span>`}</div>`;
+      let wf = '', WD = null; const WF = x => !wf || x.type === wf;
+      const load = () => api('GET', 'wallet').done(d => { WD = d; const sm = k => d.pending.filter(x => x.type === k); $('#wst').html([['واریز در انتظار', sm('deposit')], ['برداشت در انتظار', sm('withdraw')]].map(([l, a]) => `<div class="st"><b>${fa(a.length)}</b><span>${l} · ${fa(a.reduce((t, x) => t + (+x.amount || 0), 0))} تومان</span></div>`).join(''));
+        $('#wpend').html(d.pending.filter(WF).length ? d.pending.filter(WF).map(row).join('') : '<span class="mu">درخواستی در انتظار نیست.</span>');
+        $('#wrec').html(d.recent.filter(WF).length ? d.recent.filter(WF).map(row).join('') : '<span class="mu">هنوز سابقه‌ای نیست.</span>');
+        $('#wtot').text(`مجموع موجودی بازیکن‌ها: ${fa(d.totals.balance)} تومان · قابل برداشت: ${fa(d.totals.withdrawable)} تومان`);
+        badge();
+      });
+      V.off('click').off('change');
+      V.html(`<div class="pn"><h3>درخواست‌های در انتظار</h3><div class="bar tb" style="margin:10px 0 0"><div class="chips">${[['', 'همه'], ['deposit', 'واریز'], ['withdraw', 'برداشت'], ['gift', 'هدیه'], ['adjust', 'تعدیل']].map(([k, n]) => `<button class="ch ${k === '' ? 'on' : ''}" data-wf="${k}" type="button">${n}</button>`).join('')}</div><button class="b g s" id="wcsv" type="button">خروجی CSV سابقه</button></div><div class="sg" id="wst" style="margin:12px 0 0"></div><p class="mu" id="wtot" style="font-size:.85rem;margin:6px 0 12px"></p>
+          <p class="mu" style="font-size:.8rem;margin-bottom:12px">واریز: بعد از اینکه پرداخت بازیکن به حسابت رسید «تایید» بزن تا موجودی‌اش زیاد شود. برداشت: اول مبلغ را به کارت بازیکن واریز کن، بعد «واریز کردم» بزن. (مبلغ برداشت از لحظهٔ درخواست از موجودی‌اش نگه داشته شده؛ «رد» آن را برمی‌گرداند.)</p>
+          <div id="wpend"></div></div>
+        <div class="pn"><h3>تعدیل دستی موجودی</h3><p class="mu" style="font-size:.85rem;margin:6px 0 14px">برای اصلاح اشتباه یا هدیه. در لیست تراکنش‌های بازیکن ثبت می‌شود.</p>
+          <div class="fm"><label class="f">بازیکن (نام کاربری، شماره یا شناسه)<input class="in" id="waTo" autocomplete="off"><span class="chips" id="wtr" style="margin-top:6px"></span></label>
+          <label class="f">مبلغ (تومان)<input class="in" id="waAmt" type="number" min="1" inputmode="numeric"><span class="chips" style="margin-top:6px">${[10000, 50000, 100000, 500000].map(n => `<button class="ch" type="button" data-amt="${n}">${fa(n)}</button>`).join('')}</span><small class="mu" id="waPv"></small></label>
+          <label class="f">نوع<select class="in" id="waDir"><option value="in">افزایش</option><option value="out">کاهش</option></select></label>
+          <label class="f">محل افزایش<select class="in" id="waBucket"><option value="dep">فقط برای ورود به روم (غیرقابل برداشت)</option><option value="won">قابل برداشت</option></select></label>
+          <label class="f">توضیح (به بازیکن نمایش داده می‌شود)<input class="in" id="waNote" maxlength="60" autocomplete="off"></label></div>
+          <div class="bar"><button class="b" id="waGo" type="button">ثبت تعدیل</button></div></div>
+        <div class="pn"><h3>سابقهٔ اخیر</h3><div id="wrec"></div></div>`);
+      V.on('click', '[data-wa]', async function () {
+        const id = $(this).closest('.it').data('id'), act = $(this).data('wa');
+        if (!await ask(act === 'approve' ? 'این درخواست تایید شود؟' : 'این درخواست رد شود؟')) return;
+        api('POST', 'wallet/' + id + '/' + act, {}).done(() => { toast(act === 'approve' ? 'تایید شد ✓' : 'رد شد', 'k'); load(); }).fail(x => { err(x); load(); });
+      });
+      let wtm = null;
+      V.on('input', '#waTo', function () { clearTimeout(wtm); const q = this.value.trim(); if (q.length < 2) return $('#wtr').empty(); wtm = setTimeout(() => api('GET', 'players?q=' + encodeURIComponent(q)).done(L => $('#wtr').html(L.slice(0, 5).map(x => `<button class="ch" type="button" data-wp="${esc(x.phone)}">${esc(x.name || 'بدون نام')} · ${esc(x.phone)}</button>`).join(''))), 300); });
+      V.on('click', '[data-wp]', function () { $('#waTo').val($(this).data('wp')); $('#wtr').empty(); });
+      V.on('click', '[data-amt]', function () { $('#waAmt').val(+$('#waAmt').val() + +$(this).data('amt')).trigger('input'); });
+      V.on('input', '#waAmt', function () { $('#waPv').text(+this.value > 0 ? '= ' + fa(+this.value) + ' تومان' : ''); });
+      V.on('click', '#waGo', async function () {
+        const amount = +$('#waAmt').val();
+        if (!(amount > 0)) return toast('مبلغ را وارد کنید', 'e');
+        if (!await ask('تعدیل ' + fa(amount) + ' تومان (' + ($('#waDir').val() === 'in' ? 'افزایش' : 'کاهش') + ') برای «' + $('#waTo').val() + '» ثبت شود؟')) return;
+        api('POST', 'wallet/adjust', { to: $('#waTo').val(), amount, dir: $('#waDir').val(), bucket: $('#waBucket').val(), note: $('#waNote').val() })
+          .done(d => { toast('ثبت شد برای ' + d.name + ' ✓', 'k'); $('#waAmt,#waNote').val(''); load(); }).fail(err);
+      });
+      V.on('click', '[data-wf]', function () { wf = String($(this).data('wf')); $('[data-wf]').removeClass('on'); $(this).addClass('on'); load(); });
+      V.on('click', '#wcsv', () => { if (WD) csv('wallet', [['زمان', 'نوع', 'مبلغ', 'بازیکن', 'شماره', 'وضعیت', 'ادمین']].concat(WD.recent.map(t => [dt(t.at), t.type, t.amount, t.name || '', t.phone, t.status, t.by || '']))); });
+      load();
+    },
+    notify() {
+      let sel = null, tm = null;
+      V.html(`<div class="pn"><h3>ارسال اعلان به بازیکن</h3>
+        <p class="mu" style="margin-top:6px;font-size:.85rem">بازیکن اعلان را با عنوان «پشتیبانی WARHUB» می‌بیند؛ نام ادمین فرستنده برای او نمایش داده نمی‌شود (فقط در گزارش فعالیت ثبت می‌شود).</p>
+        <label class="f">بازیکن (نام کاربری، شماره موبایل یا شناسه)<input class="in" id="nq" autocomplete="off"></label>
+        <div class="ac" id="nr" style="margin-top:8px"></div>
+        <div class="chips" id="ntp">${[['تأیید واریز', 'واریز شما تأیید و به کیف پولتان اضافه شد.'], ['واریز جایزه', 'جایزه شما واریز شد. از بخش کیف پول بررسی کنید.'], ['شروع روم', 'روم شما به‌زودی شروع می‌شود؛ آماده باشید.'], ['خوش‌آمدگویی', 'به WARHUB خوش آمدید! برای هر سؤال با پشتیبانی در ارتباط باشید.']].map(t => `<button class="ch" type="button" data-ti="${esc(t[0])}" data-tb="${esc(t[1])}">${esc(t[0])}</button>`).join('')}</div>
+        <label class="f">عنوان<input class="in" id="nt" maxlength="80"></label>
+        <label class="f">متن اعلان<textarea class="in" id="nb" maxlength="500"></textarea><small class="mu" id="nc">۰ / ۵۰۰</small></label>
+        <div class="ac" style="margin-top:14px"><button class="b" id="ng" type="button">ارسال اعلان</button></div></div>
+        <div class="pn"><h3>آخرین اعلان‌های ارسال‌شده</h3><div id="nh" style="margin-top:10px"><span class="mu">در حال بارگذاری…</span></div></div>`);
+      const hist = () => api('GET', 'notify').done(L => $('#nh').html(L.length ? L.map(x => `<div class="it"><div class="hd"><b>${esc(x.title)}</b><span class="tg">${esc(x.name || x.to)}</span><span class="mu" style="margin-inline-start:auto;font-size:.8rem">${esc(x.by)} · ${dt(x.at)}</span></div><p style="margin-top:8px;white-space:pre-wrap">${esc(x.body)}</p></div>`).join('') : '<span class="mu">هنوز اعلانی نفرستاده‌اید.</span>'));
+      $('#nq').on('input', function () {
+        sel = null; clearTimeout(tm); const q = this.value.trim();
+        if (q.length < 2) return $('#nr').empty();
+        tm = setTimeout(() => api('GET', 'players?q=' + encodeURIComponent(q)).done(L => $('#nr').html(L.map(x => `<button class="b g" type="button" data-p="${esc(x.phone)}" data-n="${esc(x.name || x.phone)}">${esc(x.name || 'بدون نام')} · ${esc(x.phone)}</button>`).join('') || '<span class="mu">بازیکنی پیدا نشد</span>')), 250);
+      });
+      $('#ntp').on('click', '[data-ti]', function () { $('#nt').val($(this).data('ti')); $('#nb').val($(this).data('tb')).trigger('input'); });
+      $('#nb').on('input', function () { $('#nc').text(fa(this.value.length) + ' / ' + fa(500)); });
+      $('#nr').on('click', '[data-p]', function () { sel = $(this).data('p'); $('#nq').val($(this).data('n') + ' (' + sel + ')'); $('#nr').empty(); });
+      $('#ng').on('click', () => api('POST', 'notify', { to: sel || $('#nq').val(), title: $('#nt').val(), body: $('#nb').val() })
+        .done(r => { toast('اعلان برای ' + r.name + ' ارسال شد ✓', 'k'); sel = null; $('#nq,#nt,#nb').val(''); hist(); }).fail(err));
+      hist();
+    },
+    messages() {
+      api('GET', 'messages').done(L => {
+        let f = '', q = '';
+        const cnt = k => L.filter(x => !k || x.status === k).length, vis = () => L.filter(x => (!f || x.status === f) && (!q || [x.name, x.phone, x.message, x.dept].join(' ').toLowerCase().includes(q)));
+        V.html(`<div class="bar tb"><input class="in" id="mq" placeholder="جستجو در نام، شماره یا متن پیام…" style="width:auto;flex:1;min-width:200px;margin:0"><div class="chips">${[['', 'همه'], ['new', 'جدید'], ['read', 'خوانده‌شده'], ['archived', 'بایگانی']].map(([k, n]) => `<button class="ch ${k === '' ? 'on' : ''}" data-mf="${k}" type="button">${n}<i>${fa(cnt(k))}</i></button>`).join('')}</div><button class="b g s" id="mall" type="button">خوانده شدن همه‌ی نتایج</button><button class="b g s" id="mcsv" type="button">خروجی CSV</button></div><div id="ml"></div>`);
+        const draw = () => $('#ml').html(vis().map(x => `<div class="it ${x.status === 'new' ? 'pn n' : ''}" data-id="${esc(x.id)}"><div class="hd"><span class="tg">${esc(x.dept)}</span><b>${esc(x.name)}</b><a class="mu" href="tel:${esc(x.phone)}">${esc(x.phone)}</a><span class="mu" style="margin-inline-start:auto">${dt(x.at)}</span></div><p>${esc(x.message)}</p>
+          <div class="ac">${x.status !== 'read' ? '<button class="b s" data-s="read">خوانده شد</button>' : ''}${x.status !== 'archived' ? '<button class="b g s" data-s="archived">بایگانی</button>' : ''}${x.status !== 'new' ? '<button class="b g s" data-s="new">علامت جدید</button>' : ''}<button class="b d s" data-s="del">حذف</button></div></div>`).join('') || '<div class="em">پیامی وجود ندارد.</div>');
+        draw();
+        $('#mq').on('input', function () { q = this.value.trim().toLowerCase(); draw(); });
+        $('[data-mf]').on('click', function () { f = String($(this).data('mf')); $('[data-mf]').removeClass('on'); $(this).addClass('on'); draw(); });
+        $('#mcsv').on('click', () => csv('messages', [['زمان', 'واحد', 'نام', 'شماره', 'وضعیت', 'پیام']].concat(vis().map(x => [dt(x.at), x.dept, x.name, x.phone, x.status, x.message]))));
+        $('#mall').on('click', async () => {
+          const A = vis().filter(x => x.status === 'new'); if (!A.length) return toast('پیام جدیدی در نتایج نیست', 'e');
+          if (!await ask(fa(A.length) + ' پیام به‌عنوان خوانده‌شده علامت بخورد؟')) return;
+          $.when.apply($, A.map(x => api('PATCH', 'messages/' + x.id, { status: 'read' }))).done(() => { toast('انجام شد ✓', 'k'); go('messages'); badge(); }).fail(err);
+        });
+        $('#ml').on('click', '[data-s]', async function () {
+          const id = $(this).closest('.it').data('id'), st = $(this).data('s');
+          if (st === 'del' && !await ask('این پیام برای همیشه حذف شود؟')) return;
+          (st === 'del' ? api('DELETE', 'messages/' + id) : api('PATCH', 'messages/' + id, { status: st })).done(() => go('messages')).fail(err);
+        });
+      });
+    },
+    reviews() {
+      $.when(api('GET', 'reviews/pending'), api('GET', 'content/reviews')).done((a, b) => {
+        const P = a[0], R = b[0], av = i => { const n = Math.min(5, Math.max(1, +i.stars || 5)); return `<span style="color:#ffc933;letter-spacing:2px;white-space:nowrap">${'★'.repeat(n)}<span style="opacity:.25">${'★'.repeat(5 - n)}</span></span>`; };
+        V.html(`<div class="bar"><input class="in" id="rvq" placeholder="جستجو در نظرها…" style="max-width:320px;margin:0"></div><h3 class="sec">⏳ در انتظار تأیید <span class="tg">${fa(P.length)}</span>${P.length > 1 ? '<button class="b ok s" id="apAll" type="button" style="margin-inline-start:auto">✓ تأیید همه</button>' : ''}</h3>` +
+          (P.map(x => `<div class="it pn n" data-id="${esc(x.id)}"><div class="hd">${av(x)}<b>${esc(x.name)}</b><span class="tg">${esc(x.role || 'بدون نقش')}</span><span class="mu" style="margin-inline-start:auto">${dt(x.at)}</span></div><p>${esc(x.text)}</p>
+            <div class="ac"><button class="b ok s" data-a="approve">✓ تأیید و انتشار</button><button class="b d s" data-a="reject">✕ رد و حذف</button></div></div>`).join('') || '<div class="em">نظر جدیدی برای بررسی نیست.</div>') +
+          `<h3 class="sec">✅ منتشرشده روی سایت <span class="tg">${fa(R.length)}</span></h3>` +
+          (R.map((x, i) => `<div class="it"><div class="hd">${av(x)}<b>${esc(x.name)}</b><span class="tg">${esc(x.role || '')}</span><button class="b d s" data-del="${i}" style="margin-inline-start:auto">حذف</button></div><p style="margin-bottom:0">${esc(x.text)}</p></div>`).join('') || '<div class="em">نظری منتشر نشده.</div>'));
+        V.off('input').on('input', '#rvq', function () { const q = this.value.trim().toLowerCase(); V.find('.it').each(function () { $(this).toggle(!q || $(this).text().toLowerCase().includes(q)); }); });
+        V.off('click').on('click', '#apAll', async function () {
+          if (!await ask('همه‌ی ' + fa(P.length) + ' نظر تأیید و منتشر شود؟')) return;
+          $.when.apply($, P.map(x => api('POST', 'reviews/pending/' + x.id + '/approve', {}))).done(() => { toast('همه‌ی نظرها منتشر شد ✓', 'k'); go('reviews'); badge(); }).fail(x => { err(x); go('reviews'); });
+        }).on('click', '[data-a]', async function () {
+          const id = $(this).closest('.it').data('id'), ap = $(this).data('a') === 'approve';
+          if (!ap && !await ask('این نظر رد و برای همیشه حذف شود؟')) return;
+          (ap ? api('POST', 'reviews/pending/' + id + '/approve', {}) : api('DELETE', 'reviews/pending/' + id)).done(() => { toast(ap ? 'نظر منتشر شد ✓' : 'نظر حذف شد', 'k'); go('reviews'); badge(); }).fail(err);
+        }).on('click', '[data-del]', async function () {
+          if (!await ask('این نظر از سایت حذف شود؟')) return;
+          api('PUT', 'content/reviews', { items: R.filter((_, i) => i !== +$(this).data('del')) }).done(() => { toast('حذف شد', 'k'); go('reviews'); }).fail(err);
+        });
+      }).fail(err);
+    },
+    rooms() {
+      let mode = 'list', editing = null, detailRoom = null, L = [], PAY = [], rq = '', rf = '';
+      const rl = () => { const A = L.filter(r => (!rf || statusOf(r) === rf) && (!rq || (r.title + ' ' + r.modeLabel).toLowerCase().includes(rq))); return A.length ? A.map(listRow).join('') : '<div class="em">' + (L.length ? 'روم مطابق فیلتر پیدا نشد.' : 'هنوز روم ساخته نشده.') + '</div>'; };
+      const fileToDataUrl = file => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); });
+      // shrink big screenshots to <=1600px JPEG so they upload fast and fit the size limit
+      const shrink = file => new Promise(async (res, rej) => {
+        try {
+          const src = await fileToDataUrl(file), img = new Image();
+          img.onload = () => { const k = Math.min(1, 1600 / Math.max(img.width, img.height)), cv = document.createElement('canvas'); cv.width = Math.round(img.width * k); cv.height = Math.round(img.height * k); cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height); res(cv.toDataURL('image/jpeg', 0.85)); };
+          img.onerror = rej; img.src = src;
+        } catch (e) { rej(e); }
+      });
+
+      function statusOf(r) { const cnt = Object.keys(r.slots || {}).length; return r.finished ? 'پایان‌یافته' : !r.open ? 'بسته' : (cnt >= r.max ? 'تکمیل' : 'باز'); }
+      // datetime-local inputs need local time with no timezone suffix; ISO (UTC) comes back from/to the server
+      function isoToLocalInput(iso) { if (!iso) return ''; const d = new Date(iso), p = n => String(n).padStart(2, '0'); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`; }
+      function localInputToIso(v) { if (!v) return ''; const d = new Date(v); return isNaN(d.getTime()) ? '' : d.toISOString(); }
+      function listRow(r) {
+        const cnt = Object.keys(r.slots || {}).length;
+        return `<div class="it" data-id="${r.id}"><div class="hd"><span class="tg">${esc(r.modeLabel)}</span><b>${esc(r.title)}</b><span class="tg">${statusOf(r)}</span>${r.revealed ? '<span class="tg" style="color:var(--ok)">کد اعلام شد</span>' : ''}<span class="mu" style="margin-inline-start:auto">${fa(cnt)}/${fa(r.max)} نفر</span></div>
+          <div class="pb" style="margin-top:8px"><i style="width:${Math.min(100, Math.round(cnt / (r.max || 1) * 100))}%"></i></div><p class="mu" style="margin:8px 0 12px">${esc(r.time)} · ${fa(r.teamSize || 4)} اسلات در هر ردیف · ${r.fee ? ('ورودی ' + fa(r.fee)) : 'رایگان'} · جایزه ${r.prizeType === 'perKill' ? ('هر کیل ' + fa(r.perKill)) : fa(r.prize)}</p>
+          <div class="ac"><button class="b s" data-act="detail">مدیریت / نتایج</button><button class="b g s" data-act="edit">ویرایش</button><button class="b g s" data-act="dup">کپی</button><button class="b d s" data-act="del">حذف</button></div></div>`;
+      }
+      function formHtml(r) {
+        const isNew = !r, f = r || { title: '', mode: 'br', fee: 0, prizeType: 'fixed', prize: 0, perKill: 0, max: 100, time: '', open: true, teamSize: 4, desc: '', bg: null, color: '#E10E0E', roomCode: '', roomPassword: '', startAt: null };
+        return `<button class="b g s" id="rmBack" type="button">← بازگشت به لیست</button>
+        <div class="pn" style="margin-top:14px"><h3>${isNew ? 'ساخت روم جدید' : 'ویرایش روم'}</h3>
+        <div class="fm" style="margin-top:14px">
+          <label class="f">عنوان<input class="in" id="fTitle" value="${esc(f.title)}"></label>
+          <label class="f">دسته‌بندی (نوع بازی)<select class="in" id="fMode">${Object.entries(MODE_LABELS).map(([k, l]) => `<option value="${k}" ${f.mode === k ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+          <label class="f">ظرفیت کل (باید مضرب اسلات هر ردیف باشد)<input class="in" id="fMax" type="number" min="2" value="${f.max}"></label>
+          <label class="f">ورودی (۰ = رایگان)<input class="in" id="fFee" type="number" min="0" value="${f.fee}"></label>
+          <label class="f">اسلات در هر ردیف<select class="in" id="fTeam">${[1, 2, 4, 5].map(n => `<option value="${n}" ${f.teamSize === n ? 'selected' : ''}>${n} اسلات${n === 1 ? ' (تک‌نفره)' : ''}</option>`).join('')}</select></label>
+          <label class="f">رنگ روم (اگر عکس پس‌زمینه نبود)<input class="in" id="fColor" type="color" value="${esc(f.color || '#E10E0E')}"></label>
+          <label class="f">زمان شروع (متن، فقط برای نمایش به بازیکن)<input class="in" id="fTime" value="${esc(f.time)}" placeholder="مثلاً امشب ۲۱:۳۰"></label>
+          <label class="f">زمان دقیق شروع (برای اعلام خودکار کد)<input class="in" id="fStartAt" type="datetime-local" value="${esc(isoToLocalInput(f.startAt))}"></label>
+          <label class="f">نوع جایزه<select class="in" id="fPrizeType"><option value="fixed" ${f.prizeType === 'fixed' ? 'selected' : ''}>جایزه ثابت</option><option value="perKill" ${f.prizeType === 'perKill' ? 'selected' : ''}>به‌ازای هر کیل</option></select></label>
+          <label class="f" id="fPrizeFixedWrap" ${f.prizeType !== 'fixed' ? 'hidden' : ''}>مبلغ جایزه (به برنده می‌رسد)<input class="in" id="fPrize" type="number" min="0" value="${f.prize}"></label>
+          <label class="f" id="fPrizeKillWrap" ${f.prizeType !== 'perKill' ? 'hidden' : ''}>مبلغ هر کیل<input class="in" id="fPerKill" type="number" min="0" value="${f.perKill}"></label>
+          <label class="f">کد روم (لابی)<input class="in" id="fRoomCode" value="${esc(f.roomCode || '')}" placeholder="مثلاً 482913"></label>
+          <label class="f">رمز روم<input class="in" id="fRoomPass" value="${esc(f.roomPassword || '')}" placeholder="مثلاً warhub1"></label>
+        </div>
+        <p class="mu" style="font-size:.8rem;margin:10px 0 0">اگر «زمان دقیق شروع» را پر کنی، همان لحظه کد و رمز خودکار برای بازیکن‌های ثبت‌نامی اعلام می‌شود (با پاپ‌آپ تمام‌صفحه، هر جای سایت باشند). اگر خالی بگذاری یا بخواهی زودتر/دیرتر اعلام کنی، از دکمهٔ «اعلام کد روم» در صفحهٔ «مدیریت / نتایج» همین روم استفاده کن.</p>
+        <label class="f">توضیحات روم<textarea class="in" id="fDesc">${esc(f.desc)}</textarea></label>
+        <label class="f">پس‌زمینه (عکس، اختیاری)<input class="in" id="fBg" type="file" accept="image/*"></label>
+        ${f.bg ? `<img src="${esc(f.bg)}" style="max-width:160px;border-radius:12px;margin-top:10px;display:block;border:1px solid var(--bd)">` : ''}
+        <label class="f" style="display:flex;align-items:center;gap:8px;flex-direction:row-reverse;justify-content:flex-end;margin-top:16px"><input type="checkbox" id="fOpen" ${f.open ? 'checked' : ''}> ثبت‌نام باز باشد</label>
+        <div id="fPv"></div>
+        <div class="bar"><button class="b" id="fSave" type="button">${isNew ? 'ساخت روم' : 'ذخیره تغییرات'}</button><button class="b g" id="fCancel2" type="button">انصراف</button></div>
+        </div>`;
+      }
+      function detailHtml(r) {
+        const phones = Object.keys(r.slots || {}).sort((a, b) => a - b).map(i => ({ slot: i, phone: r.slots[i], name: (r.names || {})[r.slots[i]] || '' }));
+        const who = p => (p.name ? `<b>${esc(p.name)}</b> ` : '<span class="mu">(بدون نام)</span> ') + `<span class="ltr mu">${esc(p.phone)}</span>`;
+        const nm = ph => ((r.names || {})[ph] ? r.names[ph] + ' · ' : '') + ph;
+        let html = `<div class="sg"><div class="st"><b>${fa(phones.length)}</b><span>ثبت‌نام‌شده از ${fa(r.max)}</span></div><div class="st"><b>${fa(Math.round(phones.length / (r.max || 1) * 100))}٪</b><span>پر شدن ظرفیت</span></div><div class="st"><b>${fa((r.fee || 0) * phones.length)}</b><span>مجموع ورودی‌ها (تومان)</span></div><div class="st"><b style="font-size:1.5rem">${statusOf(r)}</b><span>وضعیت روم</span></div></div>` +
+          `<div class="pn"><h3>کد و رمز روم</h3>` +
+          (r.roomCode || r.roomPassword
+            ? `<p class="mu">کد: <b class="ltr">${esc(r.roomCode || '—')}</b> &nbsp;·&nbsp; رمز: <b class="ltr">${esc(r.roomPassword || '—')}</b></p>
+               <p class="mu" style="font-size:.85rem">${r.revealed ? '✓ همین الان برای بازیکن‌های ثبت‌نامی قابل‌دیدنه.' : (r.startAt ? 'به‌طور خودکار اعلام می‌شود: ' + new Date(r.startAt).toLocaleString('fa-IR') : 'هنوز زمان دقیق تنظیم نشده؛ از دکمهٔ زیر برای اعلام دستی استفاده کن.')}</p>
+               <div class="bar">${r.revealed
+                 ? `<button class="b g s" id="fHideCode" type="button">مخفی کردن کد</button>`
+                 : `<button class="b ok s" id="fRevealCode" type="button" ${phones.length ? '' : 'disabled'}>اعلام کد روم به بازیکنان${phones.length ? '' : ' (کسی ثبت‌نام نکرده)'}</button>`}</div>`
+            : `<p class="mu">اول از «ویرایش» کد و رمز روم را وارد کن، بعد از اینجا اعلامش کن.</p>`) +
+          `</div><div class="pn"><h3>اعضای ثبت‌نامی (${fa(phones.length)}/${fa(r.max)})</h3>${phones.length ? '<div class="bar" style="margin:6px 0 10px"><button class="b g s" data-cp="1" type="button">کپی شماره‌ها</button><button class="b g s" data-xp="1" type="button">خروجی CSV</button></div>' : ''}` +
+          (phones.length ? phones.map(p => `<div class="rw"><span>${who(p)}</span><span class="mu">جایگاه ${fa(+p.slot + 1)}</span><button class="b d s" data-kick="${p.slot}">حذف از روم</button></div>`).join('') : '<p class="mu">هنوز کسی ثبت‌نام نکرده.</p>') + `</div>`;
+        if (r.finished) {
+          const total = r.prizeType === 'perKill' ? Object.values((r.results && r.results.kills) || {}).reduce((a, k) => a + k, 0) * r.perKill : ((r.results && r.results.winner) ? r.prize : 0);
+          html += `<div class="pn"><h3>نتایج ثبت‌شده</h3>${r.resultImage ? `<a href="${esc(r.resultImage)}" target="_blank"><img src="${esc(r.resultImage)}" style="max-width:100%;width:420px;border-radius:12px;border:1px solid var(--bd);margin:6px 0 12px;display:block"></a>` : ''}${r.prizeType === 'perKill' ? '' : `<p class="mu">مجموع جایزه قابل پرداخت: <b class="rd">${fa(total)}</b></p>`}` +
+            (r.prizeType === 'fixed' ? `<p class="mu">برنده: ${(r.results && r.results.winner) ? `<span>${esc(nm(r.results.winner))}</span>` : '—'}</p>` :
+              '') +
+            `<div class="bar"><button class="b g s" id="fReopen">بازگشایی روم برای ویرایش نتایج</button></div></div>`;
+        } else if (phones.length) {
+          html += `<div class="pn"><h3>ثبت نتایج و پایان روم</h3>` +
+            (r.prizeType === 'perKill'
+              ? ''
+              : phones.map(p => `<label class="f" style="display:flex;align-items:center;gap:8px;flex-direction:row-reverse;justify-content:flex-end"><input type="radio" name="fWinner" value="${esc(p.phone)}"> <span>${who(p)}</span></label>`).join('')) +
+            `<label class="f" style="margin-top:14px">${r.prizeType === 'perKill' ? 'عکس نتیجه (برای بازیکن‌ها هم نمایش داده می‌شود)' : 'عکس نتیجه (اختیاری؛ برای بازیکن‌ها هم نمایش داده می‌شود)'}<input class="in" id="fResImg" type="file" accept="image/*"></label>${r.resultImage ? '<p class="mu" style="font-size:.8rem">قبلاً عکسی ثبت شده؛ اگر عکس جدید نگذاری همان می‌ماند.</p>' : ''}<div class="bar"><button class="b ok s" id="fFinish" type="button">ثبت نتایج و پایان روم</button></div></div>`;
+        }
+        if (phones.length) { // record a payout: shows up live for players under "آخرین واریزی‌ها" and counts as a win on the leaderboard
+          const mine = PAY.filter(x => x.roomId === r.id);
+          html += `<div class="pn"><h3>ثبت واریز</h3><p class="mu" style="font-size:.85rem;margin:6px 0 14px">بعد از واریز جایزه، اینجا ثبتش کن تا فوراً در «آخرین واریزی‌ها» برای کاربران نمایش داده شود و در لیدر برد برای بازیکن ثبت شود.</p>
+            <div class="fm"><label class="f">بازیکن<select class="in" id="payWho">${phones.map(p => `<option value="${esc(p.phone)}">${esc(p.name || 'بدون نام')} — ${esc(p.phone)}</option>`).join('')}</select></label>
+            <label class="f">مبلغ (تومان)<input class="in" id="payAmt" type="number" min="1" inputmode="numeric"></label></div>
+            <label class="f">روش پرداخت جایزه<select class="in" id="payMethod"><option value="wallet">اضافه شدن به کیف پول بازیکن (قابل برداشت)</option><option value="bank">قبلاً به حساب بانکی‌اش واریز کرده‌ام (فقط ثبت)</option></select></label>
+            <div class="bar"><button class="b" id="paySave" type="button">ثبت واریز</button></div>
+            ${mine.map(x => `<div class="rw"><span><b>${esc(x.name)}</b> ${fa(x.amount)} تومان <span class="tg">${x.method === 'wallet' ? 'کیف پول' : 'بانکی'}</span></span><span class="mu">${dt(x.at)}</span><button class="b d s" data-pdel="${esc(x.id)}" type="button">حذف</button></div>`).join('')}</div>`;
+        }
+        return html;
+      }
+      function draw() {
+        if (mode === 'form') { V.html(formHtml(editing)); return pv(); }
+        if (mode === 'detail') return V.html(`<button class="b g s" id="rmBack" type="button">← بازگشت به لیست</button><h3 class="ti" style="margin-top:14px">${esc(detailRoom.title)}</h3>` + detailHtml(detailRoom));
+        V.html(`<div class="bar tb"><button class="b" id="rmNew" type="button">➕ ساخت روم جدید</button><input class="in" id="rq" placeholder="جستجوی روم…" value="${esc(rq)}" style="width:auto;flex:1;min-width:160px;margin:0"><div class="chips">${['', 'باز', 'تکمیل', 'بسته', 'پایان‌یافته'].map(k => `<button class="ch ${rf === k ? 'on' : ''}" data-rf="${k}" type="button">${k || 'همه'}</button>`).join('')}</div></div><div id="rmList">${rl()}</div>`);
+      }
+      function refresh() { api('GET', 'rooms').done(d => { L = d; draw(); }).fail(err); }
+      async function saveForm() {
+        const title = $('#fTitle').val();
+        if (!title || !title.trim()) return toast('عنوان روم را وارد کنید', 'e');
+        { const mx = +$('#fMax').val(), ts = +$('#fTeam').val(); if (!(mx >= 2) || mx % ts) return toast('ظرفیت باید مضرب ' + fa(ts) + ' باشد', 'e'); }
+        const data = { title, mode: $('#fMode').val(), max: +$('#fMax').val(), fee: +$('#fFee').val(), teamSize: +$('#fTeam').val(), color: $('#fColor').val(),
+          time: $('#fTime').val(), prizeType: $('#fPrizeType').val(), prize: +($('#fPrize').val() || 0), perKill: +($('#fPerKill').val() || 0),
+          desc: $('#fDesc').val(), open: $('#fOpen').is(':checked'), roomCode: $('#fRoomCode').val(), roomPassword: $('#fRoomPass').val(), startAt: localInputToIso($('#fStartAt').val()) };
+        const file = $('#fBg')[0].files[0];
+        if (file) data.bgData = await fileToDataUrl(file);
+        (editing ? api('PATCH', 'rooms/' + editing.id, data) : api('POST', 'rooms', data))
+          .done(() => { toast(editing ? 'ذخیره شد ✓' : 'روم ساخته شد ✓', 'k'); mode = 'list'; editing = null; refresh(); })
+          .fail(err);
+      }
+      V.off('click').off('change');
+      V.on('click', '#rmNew', () => { editing = null; mode = 'form'; draw(); });
+      V.on('click', '#rmBack', () => { mode = 'list'; editing = null; detailRoom = null; refresh(); });
+      V.on('click', '#fCancel2', () => { mode = 'list'; editing = null; draw(); });
+      V.on('click', '#fSave', saveForm);
+      const pv = () => { const mx = +$('#fMax').val() || 0, ts = +$('#fTeam').val() || 1, fee = +$('#fFee').val() || 0, pz = +$('#fPrize').val() || 0, pt = $('#fPrizeType').val(), bad = mx < 2 || mx % ts;
+        $('#fPv').html(`<div class="rpv" style="--c:${esc($('#fColor').val())}"><div><b>${esc($('#fTitle').val() || 'عنوان روم')}</b><span class="tg">${esc(MODE_LABELS[$('#fMode').val()] || '')}</span></div><p>${esc($('#fTime').val() || 'زمان مشخص نشده')} · ${fee ? 'ورودی ' + fa(fee) : 'رایگان'} · ${pt === 'perKill' ? 'هر کیل ' + fa(+$('#fPerKill').val() || 0) : 'جایزه ' + fa(pz)}</p><p>${fa(mx)} نفر · ${fa(Math.floor(mx / ts))} ردیف ${bad ? '<span class="rd">⚠ ظرفیت باید مضرب ' + fa(ts) + ' باشد</span>' : ''}</p>${pt === 'fixed' && fee && !bad ? `<p>اگر روم پر شود (تخمینی): درآمد ${fa(fee * mx)} · سود ${fa(fee * mx - pz)}</p>` : ''}</div>`); };
+      V.on('input change', '#fTitle,#fMode,#fMax,#fFee,#fTeam,#fColor,#fTime,#fPrizeType,#fPrize,#fPerKill', pv);
+      V.on('change', '#fBg', function () { const f = this.files[0]; $('#fBgPv').remove(); if (f) $(this).after('<img id="fBgPv" src="' + URL.createObjectURL(f) + '" style="max-width:160px;border-radius:12px;margin-top:10px;display:block;border:1px solid var(--bd)">'); });
+      V.on('input', '#rq', function () { rq = this.value.trim().toLowerCase(); $('#rmList').html(rl()); });
+      V.on('click', '[data-rf]', function () { rf = String($(this).data('rf')); $('[data-rf]').removeClass('on'); $(this).addClass('on'); $('#rmList').html(rl()); });
+      V.on('change', '#fPrizeType', function () { $('#fPrizeFixedWrap').prop('hidden', this.value !== 'fixed'); $('#fPrizeKillWrap').prop('hidden', this.value !== 'perKill'); });
+      V.on('click', '[data-act]', async function () {
+        const id = +$(this).closest('.it').data('id'), r = L.find(x => x.id === id), act = $(this).data('act');
+        if (act === 'edit') { editing = r; mode = 'form'; draw(); }
+        else if (act === 'detail') { detailRoom = r; mode = 'detail'; draw(); api('GET', 'payouts').done(d => { PAY = d; if (mode === 'detail') draw(); }); }
+        else if (act === 'dup') { const d = { title: r.title + ' (کپی)', mode: r.mode, max: r.max, fee: r.fee, teamSize: r.teamSize, color: r.color, time: r.time, prizeType: r.prizeType, prize: r.prize, perKill: r.perKill, desc: r.desc, open: false }; if (await ask('یک کپی بسته از این روم ساخته شود؟ (عکس پس‌زمینه کپی نمی‌شود)')) api('POST', 'rooms', d).done(() => { toast('کپی ساخته شد ✓', 'k'); refresh(); }).fail(err); }
+        else if (act === 'del') { if (await ask('این روم برای همیشه حذف شود؟ (قابل بازگشت نیست)')) api('DELETE', 'rooms/' + id).done(() => { toast('روم حذف شد', 'k'); refresh(); }).fail(err); }
+      });
+      V.on('click', '#paySave', function () {
+        const phone = $('#payWho').val(), amount = +$('#payAmt').val();
+        if (!(amount > 0)) return toast('مبلغ را وارد کنید', 'e');
+        api('POST', 'payouts', { roomId: detailRoom.id, phone, amount, method: $('#payMethod').val() }).done(d => { PAY.unshift(d.payout); toast('واریز ثبت شد ✓', 'k'); draw(); }).fail(err);
+      });
+      V.on('click', '[data-pdel]', async function () {
+        const id = String($(this).data('pdel'));
+        if (!await ask('این واریز حذف شود؟ (از لیست کاربران و لیدر برد هم برداشته می‌شود)')) return;
+        api('DELETE', 'payouts/' + id).done(() => { PAY = PAY.filter(x => x.id !== id); toast('حذف شد', 'k'); draw(); }).fail(err);
+      });
+      V.on('click', '[data-cp]', () => { const t = Object.values(detailRoom.slots || {}).join('\n'); (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('شماره‌ها کپی شد ✓', 'k'), () => toast('کپی نشد', 'e')); });
+      V.on('click', '[data-xp]', () => { const r = detailRoom; csv('room-' + r.id, [['جایگاه', 'نام', 'شماره']].concat(Object.keys(r.slots || {}).sort((a, b) => a - b).map(i => [+i + 1, (r.names || {})[r.slots[i]] || '', r.slots[i]]))); });
+      V.on('click', '[data-kick]', async function () {
+        const slot = $(this).data('kick');
+        if (!await ask('این بازیکن از روم حذف شود؟')) return;
+        api('POST', 'rooms/' + detailRoom.id + '/kick', { slot }).done(d => { detailRoom = d.room; L = L.map(x => x.id === d.room.id ? d.room : x); toast('حذف شد', 'k'); draw(); }).fail(err);
+      });
+      V.on('click', '#fFinish', async function () {
+        let body;
+        if (detailRoom.prizeType === 'perKill') { body = { kills: {} }; if (!($('#fResImg')[0] && $('#fResImg')[0].files[0]) && !detailRoom.resultImage) return toast('عکس نتیجه را انتخاب کنید', 'e'); }
+        else body = { winner: V.find('input[name=fWinner]:checked').val() || null };
+        const rf = $('#fResImg')[0] && $('#fResImg')[0].files[0];
+        if (rf) { try { body.imageData = await shrink(rf); } catch (e) { return toast('عکس خوانده نشد', 'e'); } }
+        api('POST', 'rooms/' + detailRoom.id + '/finish', body).done(d => { detailRoom = d.room; L = L.map(x => x.id === d.room.id ? d.room : x); toast('نتایج ثبت شد ✓', 'k'); draw(); }).fail(err);
+      });
+      V.on('click', '#fReopen', async function () {
+        if (!await ask('نتایج این روم پاک شود و دوباره قابل ویرایش شود؟')) return;
+        api('POST', 'rooms/' + detailRoom.id + '/reopen', {}).done(d => { detailRoom = d.room; L = L.map(x => x.id === d.room.id ? d.room : x); toast('بازگشایی شد', 'k'); draw(); }).fail(err);
+      });
+      V.on('click', '#fRevealCode', async function () {
+        if (!await ask('کد و رمز روم همین الان برای همهٔ بازیکن‌های ثبت‌نامی نمایش داده شود؟')) return;
+        api('POST', 'rooms/' + detailRoom.id + '/reveal', {}).done(d => { detailRoom = d.room; L = L.map(x => x.id === d.room.id ? d.room : x); toast('اعلام شد ✓', 'k'); draw(); }).fail(err);
+      });
+      V.on('click', '#fHideCode', async function () {
+        api('POST', 'rooms/' + detailRoom.id + '/hide', {}).done(d => { detailRoom = d.room; L = L.map(x => x.id === d.room.id ? d.room : x); toast('مخفی شد', 'k'); draw(); }).fail(err);
+      });
+      refresh();
+    },
+    users() {
+      api('GET', 'users').done(R => {
+        const L = R.users, tick = R.allPerms;
+        const sel = (id, v) => `<select class="in" data-r="${esc(id)}" style="margin:0;padding:6px 10px">${Object.entries(ROLES).map(([k, n]) => `<option value="${k}" ${k === v ? 'selected' : ''}>${n}</option>`).join('')}</select>`;
+        const chips = u => u.locked ? '<span class="tg">همه‌ی دسترسی‌ها</span>' : (tick.filter(k => u.perms.includes(k)).map(k => `<span class="tg">${esc(PERM_LABELS[k].split(' (')[0].replace(' ⚠️', ''))}</span>`).join('') || '<span class="mu">هیچ</span>');
+        const row = u => `<tr><td data-l="کاربر"><b class="ltr">${esc(u.u)}</b>${u.pending ? ' <span class="tg">در انتظار فعال‌سازی</span>' : ''}</td><td data-l="نقش">${u.u === me.u || (!R.primary && u.r === 'owner') ? esc(ROLES[u.r]) : sel(u.u, u.r)}</td>
+          <td data-l="دسترسی‌ها"><div class="pc">${chips(u)}${u.custom ? '<span class="tg" style="border-color:var(--ok);color:var(--ok)">سفارشی</span>' : ''}${R.primary && !u.locked && u.u !== me.u ? `<button class="b g s" data-pp="${esc(u.u)}" type="button">تنظیم دسترسی‌ها</button>` : ''}</div></td>
+          <td class="mu nw" data-l="ساخته‌شده">${dt(u.at)}</td><td class="nw">${u.u === me.u ? '<span class="tg">شما</span>' : `<button class="b d s" data-d="${esc(u.u)}">حذف</button>`}</td></tr>
+          <tr class="pprow" data-for="${esc(u.u)}" hidden><td colspan="5"><div class="pn" style="margin:6px 0"><h3>دسترسی‌های ${esc(u.u)}</h3><p class="mu" style="font-size:.85rem;margin-top:4px">هر کدام را که می‌خواهی این مدیر داشته باشد تیک بزن.</p>
+          <div class="fm" style="margin-top:10px">${tick.map(k => `<label class="f" style="display:flex;align-items:center;gap:8px;margin:0"><input type="checkbox" data-k="${k}" ${u.perms.includes(k) ? 'checked' : ''} style="width:18px;height:18px;accent-color:var(--r2)"> ${esc(PERM_LABELS[k])}</label>`).join('')}</div>
+          <div class="ac" style="margin-top:14px"><button class="b ok s" data-save="${esc(u.u)}" type="button">ذخیره‌ی دسترسی‌ها</button><button class="b g s" data-all="${esc(u.u)}" type="button">انتخاب همه</button><button class="b g s" data-def="${esc(u.u)}" type="button">برگرداندن به پیش‌فرض نقش</button></div></div></td></tr>`;
+        V.html(`<div class="bar"><input class="in" id="uq" placeholder="جستجوی مدیر…" style="max-width:320px;margin:0"></div><div class="tw"><table class="ut"><tr><th>کاربر</th><th>نقش</th><th>دسترسی‌ها</th><th>ساخته‌شده</th><th></th></tr>${L.map(row).join('')}</table></div>
+          ${lastInv ? `<div class="pn" style="margin-top:22px;border-color:var(--ok)"><h3>✅ ادمین با شماره ${esc(lastInv.phone)} ثبت شد</h3><p class="mu">کد دعوت (فقط همین یک‌بار نمایش داده می‌شود؛ به خود او بده):</p><p style="font-size:1.6rem;letter-spacing:3px" class="ltr"><b>${esc(lastInv.invite)}</b></p><button class="b g s" id="cpinv" type="button" data-c="${esc(lastInv.invite)}">کپی کد دعوت</button><p class="mu" style="font-size:.85rem">او باید در سایت با همین شماره وارد شود، سپس در این صفحه با همین کد و یک رمز جدید دسترسی را فعال کند. بعد از ثبت، از جدول بالا می‌توانی دسترسی‌هایش را تیک بزنی.</p></div>` : ''}
+          <div class="pn" style="margin-top:22px"><h3>📱 افزودن ادمین با شماره موبایل</h3><p class="mu" style="font-size:.85rem">فقط شمارهٔ موبایل و نقش را وارد کنید؛ یک کد دعوت ساخته می‌شود.</p>
+          <div class="fm" style="margin-top:6px"><label class="f">شماره موبایل<input class="in ltr" id="nph" placeholder="09123456789" autocomplete="off"></label>
+          <label class="f">نقش<select class="in" id="nrp">${Object.entries(ROLES).map(([k, v]) => `<option value="${k}" ${k === 'editor' ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
+          <button class="b" id="nap" type="button">ثبت ادمین با شماره</button></div></div>
+          <div class="pn" style="margin-top:22px"><h3>➕ افزودن مدیر جدید (نام کاربری و رمز)</h3><p class="mu" style="font-size:.85rem">نام کاربری و رمز را خودتان تعیین می‌کنید و به مدیر جدید می‌دهید.</p>
+          <div class="fm" style="margin-top:6px"><label class="f">نام کاربری (انگلیسی)<input class="in ltr" id="nu" autocomplete="off"></label><label class="f">رمز (حداقل ۸ کاراکتر)<input class="in ltr" id="np" type="text" autocomplete="off"></label>
+          <label class="f">نقش<select class="in" id="nr">${Object.entries(ROLES).map(([k, v]) => `<option value="${k}" ${k === 'editor' ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
+          <button class="b g" id="ngp" type="button">ساخت رمز قوی</button><button class="b" id="na" type="button">ثبت مدیر</button></div></div>`);
+        lastInv = null;
+        $('#uq').on('input', function () { const q = this.value.trim().toLowerCase(); V.find('.ut tr').not(':first').not('.pprow').each(function () { const ok = !q || $(this).text().toLowerCase().includes(q); $(this).toggle(ok); if (!ok) $(this).next('.pprow').prop('hidden', true); }); });
+        $('#ngp').on('click', () => $('#np').val(genPw()));
+        $('#cpinv').on('click', function () { const c = String($(this).data('c')); (navigator.clipboard ? navigator.clipboard.writeText(c) : Promise.reject()).then(() => toast('کد کپی شد ✓', 'k'), () => toast('کپی نشد؛ کد را دستی انتخاب کن', 'e')); });
+        $('#nap').on('click', () => { const ph = $('#nph').val().trim().replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)); if (!/^09\d{9}$/.test(ph)) return toast('شماره را به شکل 09123456789 وارد کن', 'e'); api('POST', 'users', { phone: ph, r: $('#nrp').val() }).done(d => { lastInv = d; go('users'); }).fail(err); });
+        $('#na').on('click', () => api('POST', 'users', { u: $('#nu').val(), p: $('#np').val(), r: $('#nr').val() }).done(() => { toast('مدیر جدید ساخته شد ✓', 'k'); go('users'); }).fail(err));
+        V.find('[data-d]').on('click', async function () { if (await ask('این مدیر حذف شود؟')) api('DELETE', 'users/' + $(this).data('d')).done(() => go('users')).fail(err); });
+        V.find('[data-r]').on('change', function () { api('PATCH', 'users/' + $(this).data('r'), { r: this.value }).done(() => { toast('نقش تغییر کرد ✓ (دسترسی‌ها به پیش‌فرض نقش برگشت)', 'k'); go('users'); }).fail(x => { err(x); go('users'); }); });
+        const panel = id => V.find('.pprow').filter(function () { return $(this).data('for') === id; });
+        V.find('[data-pp]').on('click', function () { panel($(this).data('pp')).prop('hidden', (_, h) => !h); });
+        V.find('[data-all]').on('click', function () { panel($(this).data('all')).find('input[data-k]').prop('checked', true); });
+        V.find('[data-save]').on('click', function () { const id = $(this).data('save'); api('PATCH', 'users/' + id, { perms: panel(id).find('input[data-k]:checked').map(function () { return $(this).data('k'); }).get() }).done(() => { toast('دسترسی‌ها ذخیره شد ✓', 'k'); go('users'); }).fail(err); });
+        V.find('[data-def]').on('click', function () { const id = $(this).data('def'); api('PATCH', 'users/' + id, { perms: null }).done(() => { toast('به پیش‌فرض نقش برگشت ✓', 'k'); go('users'); }).fail(err); });
+      });
+    },
+    players() {
+      let tm = null, meta = null; V.off('click');
+      V.html(`<div class="pn"><h3>رنک و دستاورد بازیکنان</h3>
+        <p class="mu" style="margin-top:6px;font-size:.85rem">بازیکن را پیدا کن؛ سپس رنکش را تعیین کن یا یک دستاورد برایش ثبت کن. رنکی که اینجا می‌دهی «حداقل رنک» او می‌شود و با بردهای بعدی بالاتر هم می‌رود.</p>
+        <label class="f">بازیکن (نام کاربری، شماره موبایل یا شناسه)<input class="in" id="pq" autocomplete="off"></label></div><div id="pr"></div>`);
+      const card = p => {
+        const rk = meta.canRank ? `<div class="fm" style="margin-top:10px"><label class="f">رنک<select class="in" data-rk="${esc(p.phone)}"><option value="">بدون رنک دستی</option>${meta.ranks.map((n, i) => i ? `<option value="${i}" ${p.granted === i ? 'selected' : ''}>${esc(n)}</option>` : '').join('')}</select></label><button class="b s" data-setrk="${esc(p.phone)}" type="button">ثبت رنک</button></div>` : '';
+        const ac = meta.canAch ? `<div style="margin-top:12px">${meta.achievements.map(a => `<div style="display:flex;align-items:center;gap:10px;margin-top:6px"><span>${a.icon} ${esc(a.title)}</span><span class="tg">${fa(a.reward)} تومان</span>${p.ach.includes(a.key) ? '<span class="tg" style="border-color:var(--ok);color:var(--ok)">دارد ✓</span>' + (meta.canPay && a.reward > 0 && !a.each ? ` <button class="b g s" data-gift="${esc(p.phone)}|${esc(a.key)}" type="button">شارژ هدیه</button>` : '') : `<button class="b g s" data-ach="${esc(p.phone)}|${a.key}" type="button">ثبت دستاورد</button>`}</div>`).join('')}
+          ${meta.canPay ? '<label class="f" style="display:flex;align-items:center;gap:8px;margin-top:12px"><input type="checkbox" class="pay" style="width:18px;height:18px;accent-color:var(--r2)"> هدیه‌ی نقدی دستاورد هم به کیف پول بازیکن اضافه شود</label>' : '<p class="mu" style="font-size:.8rem;margin-top:10px">پرداخت هدیه‌ی نقدی فقط با دسترسی «کیف پول» ممکن است؛ دستاورد بدون پول ثبت می‌شود.</p>'}</div>` : '';
+        return `<div class="pn" style="margin-top:14px" data-p="${esc(p.phone)}"><div class="hd"><b>${esc(p.name || 'بدون نام')}</b><span class="tg ltr">${esc(p.phone)}</span><span class="tg">${fa(p.wins)} برد</span><span class="tg">رنک فعلی: ${esc(p.rank)}</span></div>${rk}${ac}</div>`;
+      };
+      const show = d => { meta = d; $('#pr').html(d.players.length ? d.players.map(card).join('') : '<p class="mu" style="margin-top:14px">بازیکنی پیدا نشد (حداقل ۲ حرف بنویس).</p>'); };
+      $('#pq').on('input', function () { clearTimeout(tm); const q = this.value.trim(); if (q.length < 2) return $('#pr').empty(); tm = setTimeout(() => api('GET', 'pmanage?q=' + encodeURIComponent(q)).done(show).fail(err), 300); });
+      const refresh = (ph, p) => { const old = V.find('[data-p]').filter(function () { return $(this).data('p') === ph; }); old.replaceWith(card(p)); };
+      V.on('click', '[data-setrk]', function () { const ph = $(this).data('setrk'), v = V.find('[data-rk]').filter(function () { return $(this).data('rk') === ph; }).val(); api('POST', `pmanage/${ph}/rank`, { rank: v === '' ? null : +v }).done(r => { toast('رنک ثبت شد ✓', 'k'); refresh(ph, r.player); }).fail(err); });
+      V.on('click', '[data-gift]', async function () {
+        const [ph, key] = String($(this).data('gift')).split('|'), a = meta.achievements.find(x => x.key === key); if (!a) return;
+        if (!await ask('هدیهٔ «' + a.title + '» (' + fa(a.reward) + ' تومان) الان به کیف پول این بازیکن اضافه شود؟ فقط اگر قبلاً شارژ نشده بزن، وگرنه دوبار شارژ می‌شود.')) return;
+        api('POST', 'wallet/adjust', { to: ph, amount: +a.reward, dir: 'in', bucket: 'won', note: 'هدیه دستاورد: ' + a.title }).done(() => toast('هدیه به کیف پول اضافه شد ✓', 'k')).fail(err);
+      });
+      V.on('click', '[data-ach]', async function () {
+        const [ph, key] = String($(this).data('ach')).split('|'), pay = $(this).closest('[data-p]').find('.pay').is(':checked');
+        if (await ask(pay ? 'دستاورد به همراه هدیه‌ی نقدی برای این بازیکن ثبت شود؟' : 'دستاورد (بدون پول) برای این بازیکن ثبت شود؟')) api('POST', `pmanage/${ph}/ach`, { key, pay }).done(r => { toast(pay ? 'دستاورد ثبت شد؛ موجودی بازیکن را در کیف پول چک کن ✓' : 'دستاورد ثبت شد ✓', 'k'); refresh(ph, r.player); }).fail(err);
+      });
+    },
+    audit() {
+      api('GET', 'audit').done(L => {
+        let q = '', u = ''; const users = [...new Set(L.map(x => x.u))];
+        V.html(`<div class="bar tb"><input class="in" id="aq" placeholder="جستجو در عملیات…" style="width:auto;flex:1;min-width:180px;margin:0"><select class="in" id="au" style="width:auto;margin:0"><option value="">همه‌ی مدیران</option>${users.map(x => `<option>${esc(x)}</option>`).join('')}</select><span class="mu" id="acn"></span><button class="b g s" id="acsv" type="button">خروجی CSV</button></div><div class="tw"><table><thead><tr><th>زمان</th><th>کاربر</th><th>عملیات</th></tr></thead><tbody id="ab"></tbody></table></div>`);
+        const vis = () => L.filter(x => (!u || x.u === u) && (!q || (x.a + ' ' + x.u).toLowerCase().includes(q)));
+        const draw = () => { const A = vis(); $('#ab').html(A.map(x => `<tr><td class="mu">${dt(x.at)}</td><td>${esc(x.u)}</td><td>${esc(x.a)}</td></tr>`).join('') || '<tr><td colspan="3" class="mu">موردی پیدا نشد</td></tr>'); $('#acn').text(fa(A.length) + ' مورد'); };
+        draw();
+        $('#aq').on('input', function () { q = this.value.trim().toLowerCase(); draw(); }); $('#au').on('change', function () { u = this.value; draw(); });
+        $('#acsv').on('click', () => csv('audit', [['زمان', 'کاربر', 'عملیات']].concat(vis().map(x => [dt(x.at), x.u, x.a]))));
+      });
+    },
+    me() {
+      V.html(`<div class="ag"><div class="pn" style="max-width:480px"><div class="pf"><div class="av">${esc(me.u[0])}</div><div><h3>${esc(me.u)}</h3><p class="mu" style="font-size:.85rem">${esc(ROLES[me.r])}</p></div></div><div class="ac" style="margin-top:12px">${me.perms.map(k => `<span class="tg">${esc((PERM_LABELS[k] || k).split(' (')[0].replace(' ⚠️', ''))}</span>`).join('')}</div></div><div class="pn" style="max-width:480px"><h3>تغییر نام کاربری</h3><p class="mu" style="font-size:.85rem">نام فعلی: <b id="cuName"></b></p><label class="f">نام کاربری جدید (انگلیسی، ۳ تا ۳۰ حرف)<input class="in ltr" id="nuName" autocomplete="off"></label><label class="f">رمز فعلی (برای تأیید)<input class="in ltr" id="nuPass" type="password" autocomplete="current-password"></label><div class="bar"><button class="b" id="nuSave" type="button">ذخیره نام کاربری</button></div></div><div class="pn" style="max-width:480px;margin-top:18px"><h3>تغییر رمز عبور</h3><label class="f">رمز فعلی<input class="in ltr" id="po" type="password"></label><label class="f">رمز جدید (حداقل ۸ کاراکتر)<input class="in ltr" id="pw" type="password"><div class="mt"><i id="pwm"></i></div><small class="mu" id="pwt">قدرت رمز</small></label><div class="bar"><button class="b" id="ps" type="button">ذخیره</button><button class="b g" id="pg" type="button">ساخت رمز قوی</button><button class="b g" id="pv" type="button">نمایش رمز</button></div></div></div>`);
+      api('GET', 'me').done(d => $('#cuName').text(d.u));
+      $('#pw').on('input', function () { const v = this.value, n = (v.length >= 8) + (v.length >= 12) + (/[a-z]/.test(v) && /[A-Z]/.test(v)) + /\d/.test(v) + /[^\w]/.test(v), c = ['#ff2b3b', '#ff2b3b', '#ffb02e', '#e8d84a', '#2ee59d', '#2ee59d'][n]; $('#pwm').css({ width: v ? n * 20 + '%' : 0, background: c }); $('#pwt').text(v ? ['خیلی ضعیف', 'ضعیف', 'متوسط', 'خوب', 'قوی', 'عالی'][n] : 'قدرت رمز'); });
+      $('#pg').on('click', () => $('#pw').attr('type', 'text').val(genPw()).trigger('input'));
+      $('#pv').on('click', function () { const h = $('#pw').attr('type') === 'password'; $('#pw').attr('type', h ? 'text' : 'password'); $(this).text(h ? 'پنهان کردن رمز' : 'نمایش رمز'); });
+      $('#nuSave').on('click', () => api('POST', 'username', { u: $('#nuName').val().trim(), p: $('#nuPass').val() }).done(d => { toast('نام کاربری تغییر کرد ✓', 'k'); $('#cuName').text(d.u); $('#nuName,#nuPass').val(''); $('#who').text(d.u); $('#av').text(d.u[0]); }).fail(err));
+      $('#ps').on('click', () => api('POST', 'password', { old: $('#po').val(), new: $('#pw').val() }).done(() => { toast('رمز تغییر کرد ✓', 'k'); $('#po,#pw').val(''); }).fail(err));
+    }
+  };
+  api('GET', 'me').done(start).fail(showLogin);
+})(jQuery);
+</script>
+</body>
+</html>
